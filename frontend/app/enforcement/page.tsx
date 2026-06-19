@@ -39,7 +39,7 @@ export default function EnforcementPlanner() {
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       {/* Title */}
       <div className="flex flex-col gap-1">
-        <div className="flex items-center gap-2 text-red-500">
+        <div className="flex items-center gap-2 text-emerald-500">
           <Calendar className="w-5 h-5" />
           <h2 className="text-xl font-bold tracking-tight text-white">Predictive Enforcement Planner</h2>
         </div>
@@ -58,7 +58,7 @@ export default function EnforcementPlanner() {
               onClick={() => setDay(i)}
               className={`p-3 rounded-xl border font-bold text-xs uppercase tracking-wider text-center transition-all ${
                 isActive
-                  ? 'bg-gradient-to-r from-red-600 to-red-500 text-white border-red-500 shadow-[0_4px_12px_rgba(239,68,68,0.2)] scale-[1.03]'
+                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-white border-emerald-500 shadow-[0_4px_12px_rgba(1,169,130,0.2)] scale-[1.03]'
                   : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-100 hover:bg-slate-850'
               }`}
             >
@@ -70,9 +70,9 @@ export default function EnforcementPlanner() {
 
       {/* Deployment summary widget */}
       {!loading && !error && plan.length > 0 && (
-        <div className="bg-gradient-to-r from-red-500/10 via-red-600/5 to-transparent border border-red-500/15 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-gradient-to-r from-emerald-500/10 via-emerald-600/5 to-transparent border border-emerald-500/15 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="bg-red-500/20 p-2.5 rounded-xl border border-red-500/30 text-red-400">
+            <div className="bg-emerald-500/20 p-2.5 rounded-xl border border-emerald-500/30 text-emerald-400">
               <UserCheck className="w-5 h-5" />
             </div>
             <div>
@@ -102,7 +102,7 @@ export default function EnforcementPlanner() {
 
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-4 border-red-500 border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : plan.length === 0 ? (
           <div className="text-center py-20 text-sm text-slate-500">
@@ -144,7 +144,7 @@ export default function EnforcementPlanner() {
                       {item.predicted_severity.toLocaleString()}
                     </td>
                     <td className="py-4 px-6 text-right">
-                      <span className="bg-red-500/10 text-red-400 border border-red-500/20 font-extrabold px-3 py-1 rounded-lg text-xs">
+                      <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-extrabold px-3 py-1 rounded-lg text-xs">
                         {item.recommended_officers} {item.recommended_officers === 1 ? 'Officer' : 'Officers'}
                       </span>
                     </td>

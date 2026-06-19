@@ -6,7 +6,7 @@ export default function SimulatePage() {
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       {/* Title */}
       <div className="flex flex-col gap-1">
-        <div className="flex items-center gap-2 text-red-500">
+        <div className="flex items-center gap-2 text-emerald-500">
           <Zap className="w-5 h-5" />
           <h2 className="text-xl font-bold tracking-tight text-white">What-If Event Simulator</h2>
         </div>

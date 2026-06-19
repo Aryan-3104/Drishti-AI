@@ -54,7 +54,7 @@ export default function SimulatorForm() {
             <select
               value={eventType}
               onChange={(e) => setEventType(e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm font-semibold text-white focus:outline-none focus:border-red-500 transition-colors"
+              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm font-semibold text-white focus:outline-none focus:border-emerald-500 transition-colors"
             >
               {EVENT_TYPES.map((e) => (
                 <option key={e.value} value={e.value}>
@@ -70,7 +70,7 @@ export default function SimulatorForm() {
             <select
               value={day}
               onChange={(e) => setDay(Number(e.target.value))}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm font-semibold text-white focus:outline-none focus:border-red-500 transition-colors"
+              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm font-semibold text-white focus:outline-none focus:border-emerald-500 transition-colors"
             >
               {DAY_NAMES.map((name, i) => (
                 <option key={i} value={i}>
@@ -91,7 +91,7 @@ export default function SimulatorForm() {
               max={23}
               value={hour}
               onChange={(e) => setHour(Number(e.target.value))}
-              className="mt-2 cursor-pointer h-2 bg-slate-850 rounded-lg appearance-none accent-red-500"
+              className="mt-2 custom-slider"
             />
           </div>
 
@@ -104,7 +104,7 @@ export default function SimulatorForm() {
               max={25}
               value={topN}
               onChange={(e) => setTopN(Number(e.target.value))}
-              className="mt-2 cursor-pointer h-2 bg-slate-850 rounded-lg appearance-none accent-red-500"
+              className="mt-2 custom-slider"
             />
           </div>
         </div>
@@ -120,7 +120,7 @@ export default function SimulatorForm() {
           <button
             onClick={runSimulation}
             disabled={loading}
-            className="w-full sm:w-auto bg-gradient-to-r from-red-600 to-red-500 text-white font-bold px-6 py-3 rounded-xl hover:shadow-[0_0_15px_rgba(239,68,68,0.3)] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold px-6 py-3 rounded-xl hover:shadow-[0_0_15px_rgba(1,169,130,0.3)] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
           >
             {loading ? (
               <>
@@ -154,7 +154,7 @@ export default function SimulatorForm() {
                 Sorted by adjusted severity under {selectedEvent?.label} event conditions.
               </p>
             </div>
-            <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-3 py-1 rounded-xl text-xs font-bold flex items-center gap-1.5 animate-pulse">
+            <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-3 py-1 rounded-xl text-xs font-bold flex items-center gap-1.5 animate-pulse">
               <ShieldAlert className="w-4 h-4" />
               <span>+{Math.round((results.multiplier - 1) * 100)}% Spike Projected</span>
             </div>
@@ -179,7 +179,7 @@ export default function SimulatorForm() {
                       {r.adjusted_severity.toLocaleString()}
                     </td>
                     <td className="py-4 px-3 text-right">
-                      <span className="bg-red-500/10 text-red-400 border border-red-500/20 font-extrabold px-3 py-1 rounded-lg text-xs">
+                      <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-extrabold px-3 py-1 rounded-lg text-xs">
                         {r.recommended_officers} {r.recommended_officers === 1 ? 'Officer' : 'Officers'}
                       </span>
                     </td>

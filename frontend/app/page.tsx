@@ -124,7 +124,7 @@ export default function Dashboard() {
 
           {loading ? (
             <div className="flex-1 flex items-center justify-center py-12">
-              <div className="w-8 h-8 border-4 border-red-500 border-t-transparent rounded-full animate-spin" />
+              <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
             </div>
           ) : (
             <div className="divide-y divide-slate-850 max-h-[350px] overflow-y-auto pr-1 space-y-1">
@@ -148,8 +148,8 @@ export default function Dashboard() {
                         {item.top_vehicle || 'SCOOTER'} • Peak {item.peak_hour}:00
                       </p>
                     </div>
-                    <div className="flex items-center gap-1.5 flex-shrink-0">
-                      <span className="text-xs font-extrabold px-2 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/10">
+                     <div className="flex items-center gap-1.5 flex-shrink-0">
+                      <span className="text-xs font-extrabold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/10">
                         {(item.total_violations || item.violation_count || 0).toLocaleString()}
                       </span>
                       <ChevronRight className="w-4 h-4 text-slate-500" />
@@ -165,7 +165,7 @@ export default function Dashboard() {
         <div className="lg:col-span-2 relative">
           {chartLoading && (
             <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-sm z-10 flex items-center justify-center rounded-2xl">
-              <div className="w-8 h-8 border-4 border-red-500 border-t-transparent rounded-full animate-spin" />
+              <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
             </div>
           )}
           <ViolationChart data={hourlyStats} junctionName={selectedJunction} />

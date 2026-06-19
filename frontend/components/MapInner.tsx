@@ -50,7 +50,7 @@ export default function MapInner({ initialHour }: MapInnerProps) {
       {/* Slider Controls */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 bg-slate-900 border border-slate-800 rounded-2xl shadow-lg">
         <div className="flex items-center gap-3">
-          <div className="bg-red-500/10 p-2.5 rounded-xl border border-red-500/20 text-red-500">
+          <div className="bg-emerald-500/10 p-2.5 rounded-xl border border-emerald-500/20 text-emerald-500">
             <Clock className="w-5 h-5" />
           </div>
           <div>
@@ -66,7 +66,7 @@ export default function MapInner({ initialHour }: MapInnerProps) {
             max={23}
             value={hour}
             onChange={(e) => setHour(Number(e.target.value))}
-            className="flex-1 accent-red-500 h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer"
+            className="custom-slider"
           />
           <div className="bg-slate-800/80 px-4 py-2 rounded-xl border border-slate-700 min-w-[90px] text-center shadow-inner">
             <span className="text-sm font-extrabold text-white">
@@ -81,7 +81,7 @@ export default function MapInner({ initialHour }: MapInnerProps) {
         {loading && (
           <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm z-[1000] flex items-center justify-center">
             <div className="flex flex-col items-center gap-3">
-              <div className="w-10 h-10 border-4 border-red-500 border-t-transparent rounded-full animate-spin" />
+              <div className="w-10 h-10 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
               <span className="text-xs font-semibold text-slate-400">Updating hotspots...</span>
             </div>
           </div>
@@ -122,7 +122,7 @@ export default function MapInner({ initialHour }: MapInnerProps) {
                       {formatJunctionName(h.junction_name)}
                     </p>
                     <div className="flex items-center gap-1.5 text-xs text-slate-700">
-                      <AlertTriangle className="w-3.5 h-3.5 text-red-500" />
+                      <AlertTriangle className="w-3.5 h-3.5 text-emerald-500" />
                       <span>Violations: <b>{count.toLocaleString()}</b></span>
                     </div>
                     <p className="text-[10px] text-slate-500">Hour: {hour}:00</p>

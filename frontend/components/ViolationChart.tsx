@@ -37,7 +37,7 @@ export default function ViolationChart({ data, junctionName }: ViolationChartPro
   if (!mounted) {
     return (
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl h-[382px] flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-slate-700 border-t-red-500 rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-slate-700 border-t-emerald-500 rounded-full animate-spin" />
       </div>
     );
   }
@@ -62,8 +62,8 @@ export default function ViolationChart({ data, junctionName }: ViolationChartPro
             >
               <defs>
                 <linearGradient id="colorViolations" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="rgb(239, 68, 68)" stopOpacity={0.4} />
-                  <stop offset="95%" stopColor="rgb(239, 68, 68)" stopOpacity={0.0} />
+                  <stop offset="5%" stopColor="rgb(1, 169, 130)" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="rgb(1, 169, 130)" stopOpacity={0.0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(51, 65, 85, 0.3)" />
@@ -94,7 +94,7 @@ export default function ViolationChart({ data, junctionName }: ViolationChartPro
               <Area
                 type="monotone"
                 dataKey="Violations Count"
-                stroke="rgb(239, 68, 68)"
+                stroke="rgb(1, 169, 130)"
                 strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#colorViolations)"

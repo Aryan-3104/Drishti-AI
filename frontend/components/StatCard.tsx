@@ -20,7 +20,7 @@ export default function StatCard({
   variant = 'blue',
 }: StatCardProps) {
   const gradients = {
-    red: 'from-red-500/10 to-red-600/5 hover:border-red-500/30 border-red-500/10 text-red-400',
+    red: 'from-emerald-500/10 to-emerald-600/5 hover:border-emerald-500/30 border-emerald-500/10 text-emerald-400',
     blue: 'from-blue-500/10 to-blue-600/5 hover:border-blue-500/30 border-blue-500/10 text-blue-400',
     purple: 'from-purple-500/10 to-purple-600/5 hover:border-purple-500/30 border-purple-500/10 text-purple-400',
     orange: 'from-orange-500/10 to-orange-600/5 hover:border-orange-500/30 border-orange-500/10 text-orange-400',
@@ -28,7 +28,7 @@ export default function StatCard({
   };
 
   const glowCircles = {
-    red: 'bg-red-500/10 group-hover:bg-red-500/20 text-red-500',
+    red: 'bg-emerald-500/10 group-hover:bg-emerald-500/20 text-emerald-500',
     blue: 'bg-blue-500/10 group-hover:bg-blue-500/20 text-blue-500',
     purple: 'bg-purple-500/10 group-hover:bg-purple-500/20 text-purple-500',
     orange: 'bg-orange-500/10 group-hover:bg-orange-500/20 text-orange-500',
@@ -58,7 +58,7 @@ export default function StatCard({
               trendType === 'positive'
                 ? 'bg-green-500/10 text-green-400 border border-green-500/10'
                 : trendType === 'negative'
-                ? 'bg-red-500/10 text-red-400 border border-red-500/10'
+                ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/10'
                 : 'bg-slate-500/10 text-slate-400 border border-slate-700/50'
             }`}
           >
