@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ParkGuard — Next.js Dashboard Frontend Client
 
-## Getting Started
+This is the Next.js 15 frontend client for **ParkGuard** — AI-Powered Parking Enforcement Intelligence. It provides a visual dashboard to interact with the FastAPI backend, displaying interactive Leaflet hotspot maps, Recharts violation charts, weekly calendar pre-deployments, and event simulators.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Key Features & Screens
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. **Dashboard command Center (`/`)**: Shows key metrics (Total violations analyzed, Top hotspots, Peak windows, Event multiplier effects) and interactive charts. Select any hotspot junction in the list to update its 24-hour historical trend area chart dynamically.
+2. **Live Heatmap (`/heatmap`)**: Interactive dark-themed map using Leaflet. Change the hour slider from 0-23 to dynamically reload hotspot marker layers scaling and coloring based on density (Red = High, Orange = Medium, Yellow = Low).
+3. **Enforcement Planner (`/enforcement`)**: Select weekdays to load predicted active force deployment schedules and total police officer requirements.
+4. **What-If Event Simulator (`/simulate`)**: Run event transit projections (processions, VIP transits, public gathers) and inspect adjusted severity loads and required staffing.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tech Stack & Libraries
 
-## Learn More
+* **Framework**: Next.js 15 (App Router) + TypeScript
+* **Styling**: Tailwind CSS (dark mode theme and custom layouts)
+* **Charts**: Recharts (with mounted hydration locks and resize debounce parameters to support React 19 sizing)
+* **Maps**: Leaflet + React Leaflet (SSR-disabled dynamic loading wrapper to prevent window-object errors)
+* **Icons**: Lucide React
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ⚙️ Installation & Running
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Prerequisites
+* **Node.js** (v18.0.0 or higher)
+* **npm** (v9.0.0 or higher)
 
-## Deploy on Vercel
+### Setup Steps
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Navigate to the Frontend Directory**:
+   ```bash
+   cd frontend
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Configure Environment Variables**:
+   Verify or create a `.env.local` file in the root of the `frontend/` folder:
+   ```bash
+   NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
+   ```
+   *Note: When deploying to production (e.g. Vercel), replace this URL with your hosted Railway/Render backend URL.*
+
+3. **Install Packages**:
+   Since the project uses React 19, install packages using the `--legacy-peer-deps` flag to ensure that React 19 peer dependency warnings are bypassed successfully:
+   ```bash
+   npm install --legacy-peer-deps
+   ```
+
+4. **Start the Development Server**:
+   ```bash
+   npm run dev
+   ```
+   Open **[http://localhost:3000](http://localhost:3000)** in your browser to view the client dashboard.
+
+5. **Build for Production**:
+   ```bash
+   npm run build
+   ```
+
+---
+
+## 🧬 Key Component Guide
+
+* **[Navbar.tsx](components/Navbar.tsx)**: Glowing header layout showing current active route tabs.
+* **[StatCard.tsx](components/StatCard.tsx)**: Modern widgets using glassmorphic gradients.
+* **[ViolationChart.tsx](components/ViolationChart.tsx)**: Area charts mapping hourly distributions, featuring a hydration mounted-check to avoid Next.js compilation issues.
+* **[HeatmapView.tsx](components/HeatmapView.tsx)** & **[MapInner.tsx](components/MapInner.tsx)**: Maps leaf coordinates using CartoDB Dark Matter tiles. Bundled using `next/dynamic` with `ssr: false` to ensure client-side rendering.
+* **[SimulatorForm.tsx](components/SimulatorForm.tsx)**: Scenario form handler connecting inputs directly to backend simulation API endpoints.
+* **[api.ts](lib/api.ts)**: Shared fetch client utility wrapper defining types and API call methods.

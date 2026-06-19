@@ -27,6 +27,11 @@ Flipkart/
 │   ├── main.py                     # Entry point & lifespan configuration
 │   ├── schemas.py                  # Pydantic request models
 │   └── requirements.txt            # Python dependencies
+├── frontend/                       # Next.js 15 Dashboard Frontend Client
+│   ├── README.md                   # Frontend setup & guide
+│   ├── app/                        # App Router Screens (dashboard, heatmap, plan, simulate)
+│   ├── components/                 # UI Components (maps, charts, forms)
+│   └── lib/                        # API helpers and types
 ├── gridlock_hackathon/             # Shared raw ML artifacts folder
 ├── gridlock_ml_pipeline_v2.ipynb   # Google Colab ML Training Notebook
 └── gridlock_solution_doc.md        # Solution & build documentation
