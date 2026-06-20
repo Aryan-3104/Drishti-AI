@@ -86,7 +86,7 @@ export default function Dashboard() {
                     <div className="truncate pr-3">
                       <p className={`text-[13px] truncate font-medium ${isSelected ? 'text-ink' : 'text-ink-2'}`}>{formatJunctionName(item.junction_name)}</p>
                       {toKannada(item.junction_name) && (
-                        <p className="text-[11px] text-ink-3 truncate" className="text-kannada">{toKannada(item.junction_name)}</p>
+                        <p className="text-[11px] text-ink-3 truncate text-kannada">{toKannada(item.junction_name)}</p>
                       )}
                       <p className="font-mono text-[11px] text-ink-3 mt-0.5">{item.top_vehicle || 'SCOOTER'} · peak {String(item.peak_hour).padStart(2, '0')}:00</p>
                     </div>
