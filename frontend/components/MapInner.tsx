@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import { api, Hotspot } from '../lib/api';
 import { Clock, AlertTriangle } from 'lucide-react';
+import { toKannada } from '../lib/kannada';
 import 'leaflet/dist/leaflet.css';
 
 const COLOR_SCALE = [
@@ -113,7 +114,7 @@ export default function MapInner({ initialHour }: { initialHour: number }) {
 
         <MapContainer center={[12.9716, 77.5946]} zoom={12} style={{ height: '100%', width: '100%' }} zoomControl={true}>
           <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
             attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
           />
           {hotspots.map((h, i) => {
@@ -123,7 +124,11 @@ export default function MapInner({ initialHour }: { initialHour: number }) {
                 pathOptions={{ color: '#ffffff', weight: 1.5, fillColor: getMarkerColor(count), fillOpacity: 0.82, opacity: 0.9 }}>
                 <Popup className="custom-leaflet-popup">
                   <div className="p-1 space-y-1.5 min-w-[160px]">
-                    <p className="text-[13px] font-medium text-ink border-b border-edge pb-1.5">{fmt(h.junction_name)}</p>
+                    <p className="text-[13px] font-medium text-ink">{fmt(h.junction_name)}</p>
+                    {toKannada(h.junction_name) && (
+                      <p className="text-[11px] text-ink-3 border-b border-edge pb-1.5 mt-0.5 text-kannada">{toKannada(h.junction_name)}</p>
+                    )}
+                    {!toKannada(h.junction_name) && <div className="border-b border-edge pb-1.5" />}
                     <div className="flex items-center gap-1.5 text-[12px] text-ink-2">
                       <AlertTriangle className="w-3.5 h-3.5 text-amber flex-shrink-0" strokeWidth={2} />
                       <span>Violations: <b className="font-mono text-ink">{count.toLocaleString()}</b></span>

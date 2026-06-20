@@ -6,7 +6,7 @@ import { AreaChart, Area, XAxis, ReferenceLine, ResponsiveContainer, Tooltip } f
 import { Cpu, Search, ChevronDown, Database, AlertTriangle } from 'lucide-react';
 
 const DAY_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const AMBER = '#fbbf24';
+const ACCENT = '#FF6600';
 
 const fmt = (name: string) => name.replace(/^BTP\d+\s*-\s*/, '');
 
@@ -235,19 +235,19 @@ export default function PredictionConsole() {
                   <AreaChart data={chartData} margin={{ top: 4, right: 0, left: 0, bottom: 0 }}>
                     <defs>
                       <linearGradient id="histFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor={AMBER} stopOpacity={0.2} />
-                        <stop offset="100%" stopColor={AMBER} stopOpacity={0} />
+                        <stop offset="0%" stopColor={ACCENT} stopOpacity={0.2} />
+                        <stop offset="100%" stopColor={ACCENT} stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <XAxis dataKey="label" hide />
                     <Tooltip
-                      contentStyle={{ background: '#0f1e35', border: '1px solid #1e3a5f', borderRadius: 4, fontSize: 11 }}
-                      labelStyle={{ color: '#5a7290', fontFamily: 'var(--font-jetbrains)' }}
-                      itemStyle={{ color: AMBER, fontFamily: 'var(--font-jetbrains)' }}
+                      contentStyle={{ background: '#ffffff', border: '1px solid #e0d8cc', borderRadius: 4, fontSize: 11, boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}
+                      labelStyle={{ color: '#8a8a8a', fontFamily: 'var(--font-jetbrains)' }}
+                      itemStyle={{ color: ACCENT, fontFamily: 'var(--font-jetbrains)' }}
                       formatter={(v: any) => [v.toLocaleString(), 'Violations']}
                     />
-                    <ReferenceLine x={hourLabel} stroke={AMBER} strokeDasharray="3 3" />
-                    <Area type="monotone" dataKey="count" stroke={AMBER} strokeWidth={1.5} fill="url(#histFill)" />
+                    <ReferenceLine x={hourLabel} stroke={ACCENT} strokeDasharray="3 3" />
+                    <Area type="monotone" dataKey="count" stroke={ACCENT} strokeWidth={1.5} fill="url(#histFill)" />
                   </AreaChart>
                 </ResponsiveContainer>
               )}

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { api, PlanItem } from '@/lib/api';
 import DeploymentMap from '@/components/DeploymentMap';
 import { Calendar, MapPin, Info, Database, Brain, ClipboardList } from 'lucide-react';
+import { toKannada } from '@/lib/kannada';
 
 const DAY_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -151,6 +152,9 @@ export default function EnforcementPlanner() {
                     </td>
                     <td className="py-3 px-5">
                       <div className="text-[14px] font-medium text-ink">{fmt(item.junction_name)}</div>
+                      {toKannada(item.junction_name) && (
+                        <div className="text-[12px] text-ink-3 mt-0.5 text-kannada">{toKannada(item.junction_name)}</div>
+                      )}
                       <div className="font-mono text-[11px] text-ink-3 mt-0.5">{item.lat.toFixed(4)}, {item.lon.toFixed(4)}</div>
                     </td>
                     <td className="py-3 px-5 font-mono text-[13px] text-ink-2">{String(item.peak_hour).padStart(2,'0')}:00</td>

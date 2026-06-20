@@ -8,6 +8,7 @@ import ViolationChart from '@/components/ViolationChart';
 import LiveNowPanel from '@/components/LiveNowPanel';
 import PredictionConsole from '@/components/PredictionConsole';
 import { Car, AlertOctagon, Clock, TrendingUp, ChevronRight, Map, Calendar, Zap, Brain, ArrowRight } from 'lucide-react';
+import { toKannada } from '@/lib/kannada';
 
 const CAPABILITIES = [
   { href: '/heatmap',     icon: Map,      tag: 'Spatial intelligence',    title: 'Live junction heatmap',       description: 'All 168 monitored junctions plotted on an interactive map. Scrub the hour slider to watch enforcement pressure shift across the city.',                                                                              metric: '168',      metricSub: 'junctions mapped' },
@@ -84,6 +85,9 @@ export default function Dashboard() {
                     className={`w-full text-left px-3 py-2.5 rounded flex items-center justify-between transition-colors cursor-pointer border-l-2 ${isSelected ? 'bg-navy-800 border-amber' : 'border-transparent hover:bg-navy-800'}`}>
                     <div className="truncate pr-3">
                       <p className={`text-[13px] truncate font-medium ${isSelected ? 'text-ink' : 'text-ink-2'}`}>{formatJunctionName(item.junction_name)}</p>
+                      {toKannada(item.junction_name) && (
+                        <p className="text-[11px] text-ink-3 truncate" className="text-kannada">{toKannada(item.junction_name)}</p>
+                      )}
                       <p className="font-mono text-[11px] text-ink-3 mt-0.5">{item.top_vehicle || 'SCOOTER'} · peak {String(item.peak_hour).padStart(2, '0')}:00</p>
                     </div>
                     <div className="flex items-center gap-1.5 flex-shrink-0">
