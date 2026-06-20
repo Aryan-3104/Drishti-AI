@@ -52,9 +52,9 @@ The result: the same junctions get congested repeatedly, enforcement arrives lat
 
 ## 2. Our Solution
 
-### ParkGuard - AI-Powered Parking Enforcement Intelligence
+### Drishti AI - AI-Powered Parking Enforcement Intelligence
 
-ParkGuard transforms **reactive enforcement into predictive deployment** using 5 months of real Bengaluru traffic violation data. Instead of asking "where did violations happen?", our system answers "where will violations happen tomorrow at 5 AM, and how many officers should be there?"
+Drishti AI transforms **reactive enforcement into predictive deployment** using 5 months of real Bengaluru traffic violation data. Instead of asking "where did violations happen?", our system answers "where will violations happen tomorrow at 5 AM, and how many officers should be there?"
 
 ### What It Does
 
@@ -408,7 +408,7 @@ import pandas as pd
 import joblib
 import numpy as np
 
-app = FastAPI(title="ParkGuard API", version="1.0")
+app = FastAPI(title="Drishti AI API", version="1.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -435,7 +435,7 @@ EVENT_MULTIPLIERS = {
 
 @app.get("/")
 def root():
-    return {"status": "ParkGuard API running"}
+    return {"status": "Drishti AI API running"}
 
 @app.get("/hotspots")
 def get_hotspots(hour: int = None, top_n: int = 20):
@@ -771,9 +771,9 @@ NEXT_PUBLIC_API_URL=https://your-railway-app.railway.app
 
 - Load dataset → basic heatmap → bar chart of top junctions → call it a dashboard
 
-### What Makes ParkGuard Different
+### What Makes Drishti AI Different
 
-| Feature | Other teams | ParkGuard |
+| Feature | Other teams | Drishti AI |
 |---|---|---|
 | Data used | Problem 1 only | Problem 1 + cross-correlation with Problem 2 |
 | Map | Static heatmap | Time-of-day slider - live updating |
