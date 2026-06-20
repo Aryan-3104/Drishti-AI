@@ -1,6 +1,11 @@
-# ParkGuard — AI-Powered Parking Enforcement Intelligence (FastAPI Backend)
+# ParkGuard — AI-Powered Parking Enforcement Command Center
 
-This is the FastAPI backend repository for **ParkGuard**, designed for the Flipkart Gridlock Hackathon 2.0. The system leverages 5 months of Bengaluru traffic violation data and a trained XGBoost model to provide predictive deployment calendar recommendations, hotspot maps, and event-based parking congestion simulators.
+**ParkGuard** is an advanced operational intelligence platform designed for the Flipkart Gridlock Hackathon 2.0. By profiling 5 months of Bengaluru traffic violation data (~300,000 GPS-tagged records), ParkGuard uses an **XGBoost machine learning model** to predict parking-induced congestion severity and recommend police officer deployment schedules across 168 junctions.
+
+The system features:
+1. **Interactive Spatial Heatmaps**: Zero-latency, client-side linear interpolation of violation counts across a 24-hour continuous time slider.
+2. **Predictive Enforcement Calendars**: Daily ranked lists of active hotspots with recommended officer counts.
+3. **What-If Scenario Simulators**: Projections of public rallies, VIP transits, or road works to dynamically pre-position resources.
 
 ---
 
@@ -8,210 +13,127 @@ This is the FastAPI backend repository for **ParkGuard**, designed for the Flipk
 
 ```
 Flipkart/
-├── backend/
-│   ├── .venv/                      # Python 3.11 Virtual Environment
-│   ├── artifacts/                  # Localized ML & Data files
-│   │   ├── model.pkl               # Trained XGBoost v3
-│   │   ├── junction_encoder.pkl    # LabelEncoder for junctions
-│   │   ├── enforcement_predictions.csv
-│   │   ├── junction_metadata.csv
+├── backend/                       # FastAPI Backend Service
+│   ├── artifacts/                 # Localized ML models & pre-computed datasets
+│   │   ├── model.pkl              # Trained XGBoost regression model
+│   │   ├── junction_encoder.pkl   # LabelEncoder mapping junctions
 │   │   ├── hourly_junction_stats.csv
-│   │   ├── features.json
-│   │   └── event_multipliers.json
-│   ├── routers/                    # FastAPI Endpoints
-│   │   ├── hotspots.py             # GET /hotspots
-│   │   ├── plan.py                 # GET /plan (Weekly calendar planner)
-│   │   ├── predict.py              # POST /predict (XGBoost prediction)
-│   │   ├── simulate.py             # POST /simulate (Event simulator)
-│   │   └── stats.py                # GET /hourly-stats (UI Chart statistics)
-│   ├── main.py                     # Entry point & lifespan configuration
-│   ├── schemas.py                  # Pydantic request models
-│   └── requirements.txt            # Python dependencies
-├── frontend/                       # Next.js 15 Dashboard Frontend Client
-│   ├── README.md                   # Frontend setup & guide
-│   ├── app/                        # App Router Screens (dashboard, heatmap, plan, simulate)
-│   ├── components/                 # UI Components (maps, charts, forms)
-│   └── lib/                        # API helpers and types
-├── gridlock_hackathon/             # Shared raw ML artifacts folder
-├── gridlock_ml_pipeline_v2.ipynb   # Google Colab ML Training Notebook
-└── gridlock_solution_doc.md        # Solution & build documentation
+│   │   ├── junction_metadata.csv
+│   │   └── enforcement_predictions.csv
+│   ├── routers/                   # Endpoint routers (hotspots, plan, predict, simulate)
+│   ├── main.py                    # Lifespan handlers and App entry point
+│   ├── requirements.txt           # Python packages list
+│   └── schemas.py                 # Pydantic schemas
+├── frontend/                      # Next.js 15 Client (Turbopack, TypeScript, Tailwind)
+│   ├── app/                       # Page layouts, sub-views, and App router
+│   ├── components/                # Interactive charts, Leaflet maps, and forms
+│   ├── lib/                       # Types and fetch API client wrapper
+│   └── public/                    # Assets and static icons
+├── gridlock_ml_pipeline_v2.ipynb  # Jupyter notebook for XGBoost training
+└── gridlock_solution_doc.md       # Solution and architecture reference doc
 ```
 
 ---
 
-## ⚙️ Setup & Installation
+## ⚙️ Backend Setup (FastAPI)
 
 ### Prerequisites
-* **Python 3.11** (Highly recommended. Python 3.12+ or 3.14+ might fail to download pre-compiled packages like `xgboost` or `scikit-learn` on Windows, causing compile errors).
+* **Python 3.11** (recommended to ensure pre-compiled packages install correctly on Windows).
 
-### Steps
-
-1. **Navigate to the Backend Directory**:
+### Setup Instructions
+1. Navigate to the backend directory:
    ```bash
    cd backend
    ```
-
-2. **Create a Virtual Environment**:
+2. Create and activate a Python virtual environment:
    ```bash
-   # Windows (using Python launcher)
-   py -3.11 -m venv .venv
-   
-   # macOS/Linux
-   python3.11 -m venv .venv
-   ```
-
-3. **Activate the Virtual Environment**:
-   ```bash
-   # Windows PowerShell
+   # Windows (PowerShell)
+   python -m venv .venv
    .\.venv\Scripts\Activate.ps1
-   
-   # Windows Command Prompt
-   .\.venv\Scripts\activate.bat
-   
+
    # macOS/Linux
+   python3 -m venv .venv
    source .venv/bin/activate
    ```
-
-4. **Install Dependencies**:
+3. Install the required Python packages:
    ```bash
    pip install -r requirements.txt
    ```
-
-5. **Run the FastAPI server**:
+4. Start the FastAPI development server:
    ```bash
    uvicorn main:app --reload --host 127.0.0.1 --port 8000
    ```
+   The backend API docs will be available at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 
 ---
 
-## 🔌 API Endpoints Reference
+## 💻 Frontend Setup (Next.js)
 
-### 1. GET `/`
-* **Description**: Server health check.
-* **Response**:
-  ```json
-  {
-      "status": "ParkGuard API running",
-      "version": "1.0",
-      "description": "AI-Powered Parking Enforcement Intelligence API"
-  }
-  ```
+### Prerequisites
+* **Node.js** (v18.0.0 or higher)
+* **npm** (v9.0.0 or higher)
 
-### 2. GET `/hotspots`
-* **Description**: Returns top hotspot junctions, optionally filtered by hour of day.
+### Setup Instructions
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Set up environment configuration:
+   Verify or create a `.env.local` file in the `frontend/` directory with the backend endpoint:
+   ```env
+   NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
+   ```
+3. Install frontend dependencies (bypassing React 19 warnings):
+   ```bash
+   npm install --legacy-peer-deps
+   ```
+4. Spin up the development server:
+   ```bash
+   npm run dev
+   ```
+5. Open **[http://localhost:3000](http://localhost:3000)** in your browser to interact with the command center.
+
+---
+
+## 🔌 API Reference Guide
+
+### 1. GET `/hotspots`
+* **Description**: Returns the top hotspot junctions, optionally filtered by hour.
 * **Query Parameters**:
-  * `hour` (optional, integer: 0-23)
-  * `top_n` (optional, integer, default: 20)
-* **Response Example**:
-  ```json
-  {
-      "hotspots": [
-          {
-              "junction_name": "BTP051 - Safina Plaza Junction",
-              "total_violations": 8785,
-              "lat": 12.98122,
-              "lon": 77.60871,
-              "peak_hour": 5,
-              "top_vehicle": "SCOOTER",
-              "main_road_pct": 0.0202
-          }
-      ],
-      "hour": null,
-      "count": 1
-  }
-  ```
+  * `hour` (integer: 0–23, optional)
+  * `top_n` (integer, default: 20)
+
+### 2. GET `/hotspots/all-hours`
+* **Description**: Fetches all 2,106 records of hourly stats for all junctions to enable client-side map rendering.
 
 ### 3. GET `/plan`
-* **Description**: Returns weekly calendar data with officer count recommendations.
+* **Description**: Outputs weekday deployment rosters and recommended officer deployment counts.
 * **Query Parameters**:
-  * `day_of_week` (optional, integer: 0-6, where 0=Monday, 6=Sunday). If omitted, returns plans for all 7 days of the week.
-  * `top_n` (optional, integer, default: 10)
-* **Response Example (with `day_of_week=6`)**:
-  ```json
-  {
-      "day_of_week": 6,
-      "plan": [
-          {
-              "junction_name": "BTP189 - New Diagonal Road, Jayanagar",
-              "predicted_severity": 64.34,
-              "lat": 12.92813,
-              "lon": 77.58067,
-              "peak_hour": 3,
-              "top_vehicle": "SCOOTER",
-              "recommended_officers": 1
-          }
-      ]
-  }
-  ```
+  * `day_of_week` (integer: 0–6, optional)
+  * `top_n` (integer, default: 10)
 
 ### 4. POST `/predict`
-* **Description**: Dynamically calculates violation severity and recommended officer count for a specific junction and time slot using the loaded XGBoost model.
+* **Description**: Queries the XGBoost model dynamically to fetch predictions for any junction at a given hour.
 * **Request Body**:
   ```json
-  {
-      "junction": "BTP051 - Safina Plaza Junction",
-      "hour": 5,
-      "day_of_week": 0
-  }
-  ```
-* **Response Example**:
-  ```json
-  {
-      "junction": "BTP051 - Safina Plaza Junction",
-      "hour": 5,
-      "day_of_week": 0,
-      "predicted_severity": 1.87,
-      "recommended_officers": 1
-  }
+  { "junction": "BTP051 - Safina Plaza Junction", "hour": 5, "day_of_week": 0 }
   ```
 
 ### 5. POST `/simulate`
-* **Description**: Simulates the effect of an event ( VIP movement, procession, public rally) on parking violations and suggests preemptive deployment.
+* **Description**: Evaluates dynamic event scenarios (rallies, VIP transits) and projects adjusted staffing requirements.
 * **Request Body**:
   ```json
-  {
-      "event_type": "public_event",
-      "hour": 21,
-      "day_of_week": 6,
-      "top_n": 3
-  }
-  ```
-* **Response Example**:
-  ```json
-  {
-      "event_type": "public_event",
-      "multiplier": 1.35,
-      "hour": 21,
-      "day_of_week": 6,
-      "results": [
-          {
-              "junction_name": "BTP189 - New Diagonal Road, Jayanagar",
-              "adjusted_severity": 72.58,
-              "recommended_officers": 1,
-              "lat": 12.92813,
-              "lon": 77.58067
-          }
-      ]
-  }
+  { "event_type": "public_event", "hour": 21, "day_of_week": 6, "top_n": 5 }
   ```
 
 ### 6. GET `/hourly-stats`
-* **Description**: Returns 24-hour historical statistics for visual charts.
-* **Query Parameters**:
-  * `junction` (required, string, exact match)
-* **Response Example**:
-  ```json
-  {
-      "junction": "BTP051 - Safina Plaza Junction",
-      "stats": [
-          {
-              "hour": 0.0,
-              "violation_count": 416
-          },
-          {
-              "hour": 1.0,
-              "violation_count": 401
-          }
-      ]
-  }
-  ```
+* **Description**: Returns 24-hour historical records for a selected junction to render graphs.
+
+---
+
+## 🔬 Core ML & Deployment Logic
+1. **Historical Profiling**: GPS-tagged parking violations are aggregated hourly to find peak traffic hours and identify patterns based on day-of-week and junction road profiles.
+2. **AI Scoring**: The XGBoost regression model takes temporal variables, junction details, and road types to output a predicted parking congestion severity score.
+3. **Police Staffing Allocation**: To help dispatch units efficiently, severity scores are mapped to recommended officer counts via:
+   $$\text{Staffing} = \text{max}\left(1, \text{min}\left(5, \text{round}\left(\frac{\text{Severity}}{200}\right)\right)\right)$$
+   This ensures optimal resource coverage, capping dispatch at 5 officers per hotspot.
