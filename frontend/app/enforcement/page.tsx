@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { api, PlanItem } from '@/lib/api';
 import DeploymentMap from '@/components/DeploymentMap';
-import { Calendar, MapPin, Info, Database, Brain, ClipboardList } from 'lucide-react';
+import { Calendar, MapPin, Info, Database, Brain, ClipboardList, ShieldCheck, TrendingDown, AlertTriangle } from 'lucide-react';
 import { toKannada } from '@/lib/kannada';
 
 const DAY_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -107,6 +107,71 @@ export default function EnforcementPlanner() {
           </div>
         </div>
       )}
+
+      {/* Before / After Coverage Card */}
+      {!loading && !error && plan.length > 0 && (() => {
+        const totalSeverity = plan.reduce((s, p) => s + p.predicted_severity, 0);
+        const estimatedPrevented = plan.reduce((s, p) => s + p.predicted_severity * Math.min(0.75, p.recommended_officers * 0.18), 0);
+        const remainingSeverity = totalSeverity - estimatedPrevented;
+        const reductionPct = totalSeverity > 0 ? (estimatedPrevented / totalSeverity) * 100 : 0;
+        const coveragePct = (plan.length / 168) * 100;
+
+        return (
+          <div className="bg-navy-900 border border-edge rounded p-5 space-y-4">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-green-400 flex-shrink-0" strokeWidth={2} />
+              <h3 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">Before / after enforcement impact</h3>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {/* Without enforcement */}
+              <div className="bg-navy-800 border border-crit/30 rounded p-4 flex flex-col gap-1">
+                <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.06em] text-crit mb-1">
+                  <AlertTriangle className="w-3.5 h-3.5" strokeWidth={2} />
+                  Without deployment
+                </div>
+                <p className="font-mono text-[26px] font-semibold text-ink leading-none">{Math.round(totalSeverity).toLocaleString()}</p>
+                <p className="text-[12px] text-ink-3">predicted violation severity</p>
+                <p className="text-[11px] text-ink-3 mt-1">across {plan.length} monitored junctions</p>
+              </div>
+
+              {/* Arrow / reduction */}
+              <div className="bg-navy-800 border border-green-500/30 rounded p-4 flex flex-col gap-1">
+                <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.06em] text-green-400 mb-1">
+                  <TrendingDown className="w-3.5 h-3.5" strokeWidth={2} />
+                  Violations prevented
+                </div>
+                <p className="font-mono text-[26px] font-semibold text-green-400 leading-none">{Math.round(estimatedPrevented).toLocaleString()}</p>
+                <p className="text-[12px] text-ink-3">estimated reduction</p>
+                <p className="text-[11px] text-ink-3 mt-1">with {totalOfficers} officers deployed</p>
+              </div>
+
+              {/* After enforcement */}
+              <div className="bg-amber-bg border border-amber/30 rounded p-4 flex flex-col gap-1">
+                <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.06em] text-amber mb-1">
+                  <ShieldCheck className="w-3.5 h-3.5" strokeWidth={2} />
+                  With this plan
+                </div>
+                <p className="font-mono text-[26px] font-semibold text-amber leading-none">{Math.round(remainingSeverity).toLocaleString()}</p>
+                <p className="text-[12px] text-ink-3">residual violation severity</p>
+                <p className="text-[11px] text-amber/70 mt-1 font-medium">{reductionPct.toFixed(1)}% reduction achieved</p>
+              </div>
+            </div>
+
+            {/* Coverage bar */}
+            <div className="space-y-1.5">
+              <div className="flex justify-between text-[11px] text-ink-3">
+                <span>Junction coverage — {plan.length} of 168 monitored</span>
+                <span className="text-amber font-mono">{coveragePct.toFixed(1)}%</span>
+              </div>
+              <div className="h-2 bg-navy-800 rounded-full overflow-hidden">
+                <div className="h-full bg-amber rounded-full transition-all duration-500" style={{ width: `${coveragePct}%` }} />
+              </div>
+              <p className="text-[11px] text-ink-3">Remaining {168 - plan.length} junctions are below the severity threshold for today.</p>
+            </div>
+          </div>
+        );
+      })()}
 
       {error && <div className="bg-crit-bg border border-crit/30 text-crit rounded p-4 text-[13px]">{error}</div>}
 

@@ -21,7 +21,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5">
           <Shield className="w-5 h-5 text-amber flex-shrink-0" strokeWidth={2} />
-          <span className="font-display text-[18px] font-semibold tracking-tight text-ink">ParkGuard</span>
+          <span className="font-display text-[18px] font-semibold tracking-tight text-ink">Drishti AI</span>
           <span className="hidden sm:inline font-mono text-[10px] text-ink-3 border-l border-edge pl-2.5 ml-0.5">BTP / OPS</span>
         </Link>
 

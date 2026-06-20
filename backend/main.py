@@ -36,8 +36,8 @@ async def lifespan(app: FastAPI):
     pass
 
 app = FastAPI(
-    title="ParkGuard API",
-    description="FastAPI Backend for ParkGuard — AI-Powered Parking Enforcement Intelligence",
+    title="Drishti AI API",
+    description="FastAPI Backend for Drishti AI — AI-Powered Parking Enforcement Intelligence",
     version="1.0",
     lifespan=lifespan
 )
@@ -61,7 +61,7 @@ app.include_router(stats.router)
 @app.get("/")
 def root():
     return {
-        "status": "ParkGuard API running",
+        "status": "Drishti AI API running",
         "version": "1.0",
         "description": "AI-Powered Parking Enforcement Intelligence API"
     }

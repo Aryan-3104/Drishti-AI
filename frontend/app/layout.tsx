@@ -26,7 +26,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ParkGuard — Bengaluru Traffic Enforcement Intelligence",
+  title: "Drishti AI — Bengaluru Traffic Enforcement Intelligence",
   description: "AI-driven parking enforcement intelligence for Bengaluru Traffic Police.",
 };
 

@@ -7,7 +7,7 @@ import StatCard from '@/components/StatCard';
 import ViolationChart from '@/components/ViolationChart';
 import LiveNowPanel from '@/components/LiveNowPanel';
 import PredictionConsole from '@/components/PredictionConsole';
-import { Car, AlertOctagon, Clock, TrendingUp, ChevronRight, Map, Calendar, Zap, Brain, ArrowRight } from 'lucide-react';
+import { Car, AlertOctagon, Clock, TrendingUp, ChevronRight, Map, Calendar, Zap, Brain, ArrowRight, Eye, Target, Activity, Users } from 'lucide-react';
 import { toKannada } from '@/lib/kannada';
 
 const CAPABILITIES = [
@@ -108,6 +108,83 @@ export default function Dashboard() {
             </div>
           )}
           <ViolationChart data={hourlyStats} junctionName={selectedJunction} />
+        </div>
+      </div>
+
+      {/* About Drishti AI */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-3">
+          <h2 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">About Drishti AI</h2>
+          <div className="flex-1 h-px bg-edge" />
+        </div>
+
+        <div className="bg-navy-900 border border-edge rounded p-6 md:p-8 space-y-8">
+          {/* Hero blurb */}
+          <div className="max-w-3xl space-y-3">
+            <div className="flex items-center gap-2">
+              <Eye className="w-4 h-4 text-amber flex-shrink-0" strokeWidth={2} />
+              <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-amber">What is Drishti AI?</span>
+            </div>
+            <h3 className="font-display text-[22px] md:text-[26px] font-semibold text-ink leading-snug">
+              Turning five months of Bengaluru traffic data into<br className="hidden md:block" /> deployable enforcement intelligence
+            </h3>
+            <p className="text-[14px] text-ink-2 leading-relaxed">
+              Drishti AI — <em className="text-ink not-italic font-medium">drishti</em> (दृष्टि) means <em className="text-ink not-italic font-medium">vision</em> in Sanskrit — is an AI-powered decision support system built for the Bengaluru Traffic Police. It transforms a raw archive of 298,450 GPS-tagged parking violations into a live, predictive intelligence layer: telling commanders exactly where to send officers, when, and how many — before violations happen, not after.
+            </p>
+          </div>
+
+          {/* The problem / solution split */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-navy-800 border border-crit/20 rounded p-5 space-y-2">
+              <p className="text-[11px] uppercase tracking-[0.08em] text-crit font-medium">The problem</p>
+              <p className="text-[14px] text-ink-2 leading-relaxed">
+                Parking enforcement in Bengaluru has historically been <span className="text-ink">reactive</span>. Officers are dispatched to junctions where violations were reported yesterday, not where the model predicts they will be heaviest tomorrow morning at 3 AM. The result: overcrowded hotspots go unpatrolled during critical windows while officers wait at quiet intersections.
+              </p>
+            </div>
+            <div className="bg-navy-800 border border-green-500/20 rounded p-5 space-y-2">
+              <p className="text-[11px] uppercase tracking-[0.08em] text-green-400 font-medium">The Drishti AI solution</p>
+              <p className="text-[14px] text-ink-2 leading-relaxed">
+                An XGBoost model trained on 5 months of violation records learns the road type, vehicle mix, and hourly rhythm of all 168 monitored junctions. It pre-computes a 24 × 7 severity grid so that any day-and-hour combination instantly yields a ranked deployment schedule with <span className="text-ink">precise officer-count recommendations</span> — ready before a shift briefing begins.
+              </p>
+            </div>
+          </div>
+
+          {/* Three pillars */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              {
+                icon: Target,
+                title: 'Predictive deployment',
+                body: 'Every junction is scored for every hour of the week. The weekly planner surfaces the top 12 junctions per day and tells you exactly how many officers each needs — no guesswork.',
+              },
+              {
+                icon: Activity,
+                title: 'Event scenario modelling',
+                body: 'Public events, VIP movements, protests, and construction zones each carry a learned violation multiplier. The simulator shows how severity spikes and where to pre-position forces before an event starts.',
+              },
+              {
+                icon: Users,
+                title: 'Command-ready output',
+                body: 'Every view — heatmap, planner, simulator — is designed to be read in a shift briefing, not a data-science meeting. Numbers are officer counts and junction names, not raw model scores.',
+              },
+            ].map((pillar) => (
+              <div key={pillar.title} className="flex flex-col gap-3 p-5 bg-navy-800 border border-edge rounded">
+                <pillar.icon className="w-4 h-4 text-amber" strokeWidth={2} />
+                <div className="space-y-1.5">
+                  <p className="text-[14px] font-semibold text-ink">{pillar.title}</p>
+                  <p className="text-[13px] text-ink-2 leading-relaxed">{pillar.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Data provenance footer */}
+          <div className="flex flex-wrap gap-x-8 gap-y-3 pt-4 border-t border-edge text-[12px] text-ink-3">
+            <span><span className="text-ink font-medium">298,450</span> violations · 5 months of Bengaluru data</span>
+            <span><span className="text-ink font-medium">168</span> junctions across the city</span>
+            <span><span className="text-ink font-medium">XGBoost</span> severity model · joblib-served via FastAPI</span>
+            <span><span className="text-ink font-medium">Flipkart Gridlock Hackathon 2.0</span> · Team submission</span>
+          </div>
         </div>
       </div>
 
