@@ -9,7 +9,7 @@ The system features:
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 Flipkart/
@@ -35,7 +35,7 @@ Flipkart/
 
 ---
 
-## ⚙️ Backend Setup (FastAPI)
+## Backend Setup (FastAPI)
 
 ### Prerequisites
 * **Python 3.11** (recommended to ensure pre-compiled packages install correctly on Windows).
@@ -67,7 +67,7 @@ Flipkart/
 
 ---
 
-## 💻 Frontend Setup (Next.js)
+## Frontend Setup (Next.js)
 
 ### Prerequisites
 * **Node.js** (v18.0.0 or higher)
@@ -95,7 +95,7 @@ Flipkart/
 
 ---
 
-## 🔌 API Reference Guide
+## API Reference Guide
 
 ### 1. GET `/hotspots`
 * **Description**: Returns the top hotspot junctions, optionally filtered by hour.
@@ -131,7 +131,7 @@ Flipkart/
 
 ---
 
-## 🔬 Core ML & Deployment Logic
+## Core ML & Deployment Logic
 1. **Historical Profiling**: GPS-tagged parking violations are aggregated hourly to find peak traffic hours and identify patterns based on day-of-week and junction road profiles.
 2. **AI Scoring**: The XGBoost regression model takes temporal variables, junction details, and road types to output a predicted parking congestion severity score.
 3. **Police Staffing Allocation**: To help dispatch units efficiently, severity scores are mapped to recommended officer counts via:
