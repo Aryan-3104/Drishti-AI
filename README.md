@@ -4,7 +4,7 @@
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 Flipkart-gridLock/
@@ -35,7 +35,7 @@ Flipkart-gridLock/
 
 ---
 
-## ⚙️ Backend Setup (FastAPI)
+## Backend Setup (FastAPI)
 
 ### Prerequisites
 - **Python 3.11** (recommended — 3.12+ may fail to install `xgboost`/`scikit-learn` on Windows)
@@ -80,7 +80,7 @@ Flipkart-gridLock/
 
 ---
 
-## 🖥️ Frontend Setup (Next.js)
+## Frontend Setup (Next.js)
 
 ### Prerequisites
 - **Node.js** v18+
@@ -116,7 +116,7 @@ Flipkart-gridLock/
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### GET `/`
 Health check.
@@ -156,7 +156,7 @@ Supported event types: `public_event` (1.35×), `procession` (1.28×), `vip_move
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -170,7 +170,7 @@ Supported event types: `public_event` (1.35×), `procession` (1.28×), `vip_move
 
 ---
 
-## 📊 Data Facts
+## Data Facts
 
 - **298,450** GPS-tagged violations across **168 junctions** over 5 months
 - Peak hours: **02:00–06:00** (night commercial) · secondary: **19:00–23:00**
