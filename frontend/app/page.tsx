@@ -61,7 +61,7 @@ export default function Dashboard() {
         <StatCard title="Event amplification" value="+35%" animateValue={35} animatePrefix="+" animateSuffix="%" subtitle="During public rallies / festivals" badge="Predictive pre-deployment" badgeTone="healthy" icon={TrendingUp} />
       </div>
 
-      {/* Live prediction console — real XGBoost inference + historical CSV */}
+      {/* Live prediction console - real XGBoost inference + historical CSV */}
       <PredictionConsole />
 
       {/* Hotspots + chart */}
@@ -129,7 +129,7 @@ export default function Dashboard() {
               Turning five months of Bengaluru traffic data into<br className="hidden md:block" /> deployable enforcement intelligence
             </h3>
             <p className="text-[14px] text-ink-2 leading-relaxed">
-              Drishti AI — <em className="text-ink not-italic font-medium">drishti</em> (दृष्टि) means <em className="text-ink not-italic font-medium">vision</em> in Sanskrit — is an AI-powered decision support system built for the Bengaluru Traffic Police. It transforms a raw archive of 298,450 GPS-tagged parking violations into a live, predictive intelligence layer: telling commanders exactly where to send officers, when, and how many — before violations happen, not after.
+              Drishti AI - <em className="text-ink not-italic font-medium">drishti</em> (दृष्टि) means <em className="text-ink not-italic font-medium">vision</em> in Sanskrit - is an AI-powered decision support system built for the Bengaluru Traffic Police. It transforms a raw archive of 298,450 GPS-tagged parking violations into a live, predictive intelligence layer: telling commanders exactly where to send officers, when, and how many - before violations happen, not after.
             </p>
           </div>
 
@@ -144,7 +144,7 @@ export default function Dashboard() {
             <div className="bg-navy-800 border border-green-500/20 rounded p-5 space-y-2">
               <p className="text-[11px] uppercase tracking-[0.08em] text-green-400 font-medium">The Drishti AI solution</p>
               <p className="text-[14px] text-ink-2 leading-relaxed">
-                An XGBoost model trained on 5 months of violation records learns the road type, vehicle mix, and hourly rhythm of all 168 monitored junctions. It pre-computes a 24 × 7 severity grid so that any day-and-hour combination instantly yields a ranked deployment schedule with <span className="text-ink">precise officer-count recommendations</span> — ready before a shift briefing begins.
+                An XGBoost model trained on 5 months of violation records learns the road type, vehicle mix, and hourly rhythm of all 168 monitored junctions. It pre-computes a 24 × 7 severity grid so that any day-and-hour combination instantly yields a ranked deployment schedule with <span className="text-ink">precise officer-count recommendations</span> - ready before a shift briefing begins.
               </p>
             </div>
           </div>
@@ -155,7 +155,7 @@ export default function Dashboard() {
               {
                 icon: Target,
                 title: 'Predictive deployment',
-                body: 'Every junction is scored for every hour of the week. The weekly planner surfaces the top 12 junctions per day and tells you exactly how many officers each needs — no guesswork.',
+                body: 'Every junction is scored for every hour of the week. The weekly planner surfaces the top 12 junctions per day and tells you exactly how many officers each needs - no guesswork.',
               },
               {
                 icon: Activity,
@@ -165,7 +165,7 @@ export default function Dashboard() {
               {
                 icon: Users,
                 title: 'Command-ready output',
-                body: 'Every view — heatmap, planner, simulator — is designed to be read in a shift briefing, not a data-science meeting. Numbers are officer counts and junction names, not raw model scores.',
+                body: 'Every view - heatmap, planner, simulator - is designed to be read in a shift briefing, not a data-science meeting. Numbers are officer counts and junction names, not raw model scores.',
               },
             ].map((pillar) => (
               <div key={pillar.title} className="flex flex-col gap-3 p-5 bg-navy-800 border border-edge rounded">

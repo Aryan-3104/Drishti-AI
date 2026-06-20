@@ -21,8 +21,8 @@ function statusSentence(h: number) {
   if (h >= 2  && h <= 6)  return 'Commercial vehicle violation peak in progress';
   if (h >= 19 && h <= 23) return 'Evening violation peak in progress';
   if (h === 0 || h === 1) return 'Entering peak commercial violation window';
-  if (h >= 16 && h < 19)  return 'Approaching evening peak — stage units now';
-  return 'Between peak windows — routine monitoring';
+  if (h >= 16 && h < 19)  return 'Approaching evening peak - stage units now';
+  return 'Between peak windows - routine monitoring';
 }
 
 export default function LiveNowPanel() {
@@ -83,7 +83,7 @@ export default function LiveNowPanel() {
           <span className="text-[11px] uppercase tracking-[0.08em] text-ink-3">Next peak window</span>
           <span className="font-mono text-[32px] leading-none font-medium text-amber">{cd}</span>
           <p className="text-[12px] text-ink-2 mt-1">
-            <span className="font-mono">{format12(next.window.startHour)}</span> — {next.window.liftNote}
+            <span className="font-mono">{format12(next.window.startHour)}</span> - {next.window.liftNote}
           </p>
           {hotspots.length > 0 && (
             <div className="mt-2 pt-2 border-t border-edge/60 space-y-1">

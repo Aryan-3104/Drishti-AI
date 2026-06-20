@@ -1,4 +1,4 @@
-# Gridlock Hackathon 2.0 — Solution Documentation
+# Gridlock Hackathon 2.0 - Solution Documentation
 
 **Team:** [Your Team Name]  
 **Problem Statement:** Poor Visibility on Parking-Induced Congestion  
@@ -16,8 +16,8 @@
 5. [Tech Stack](#5-tech-stack)
 6. [System Architecture](#6-system-architecture)
 7. [ML Pipeline](#7-ml-pipeline)
-8. [Backend — FastAPI](#8-backend--fastapi)
-9. [Frontend — Next.js](#9-frontend--nextjs)
+8. [Backend - FastAPI](#8-backend--fastapi)
+9. [Frontend - Next.js](#9-frontend--nextjs)
 10. [Differentiators](#10-differentiators)
 11. [Step-by-Step Build Guide](#11-step-by-step-build-guide)
 12. [API Reference](#12-api-reference)
@@ -40,7 +40,7 @@ Bengaluru, a city of over 14 million people, faces chronic traffic congestion th
 
 | Challenge | Current State |
 |---|---|
-| Enforcement model | Reactive — officers respond after violations occur |
+| Enforcement model | Reactive - officers respond after violations occur |
 | Coverage | Patrol-based, limited to officer availability |
 | Prioritization | Experience-driven, no data backing |
 | Hotspot visibility | No city-wide map of violation density vs congestion impact |
@@ -52,27 +52,27 @@ The result: the same junctions get congested repeatedly, enforcement arrives lat
 
 ## 2. Our Solution
 
-### ParkGuard — AI-Powered Parking Enforcement Intelligence
+### ParkGuard - AI-Powered Parking Enforcement Intelligence
 
 ParkGuard transforms **reactive enforcement into predictive deployment** using 5 months of real Bengaluru traffic violation data. Instead of asking "where did violations happen?", our system answers "where will violations happen tomorrow at 5 AM, and how many officers should be there?"
 
 ### What It Does
 
-1. **Hotspot Heatmap** — Visualizes 298,450 real violations across 168 Bengaluru junctions on an interactive map with a time-of-day slider
-2. **Severity Prediction** — XGBoost model predicts violation severity for any junction, hour, and day combination
-3. **Enforcement Calendar** — Generates a weekly deployment schedule telling traffic police exactly where to be and when
-4. **What-If Simulator** — Predicts violation spikes when events (processions, public gatherings, VIP movements) are scheduled in any zone
-5. **Cross-Event Correlation** — Unique insight showing how traffic events amplify parking violations in surrounding areas
+1. **Hotspot Heatmap** - Visualizes 298,450 real violations across 168 Bengaluru junctions on an interactive map with a time-of-day slider
+2. **Severity Prediction** - XGBoost model predicts violation severity for any junction, hour, and day combination
+3. **Enforcement Calendar** - Generates a weekly deployment schedule telling traffic police exactly where to be and when
+4. **What-If Simulator** - Predicts violation spikes when events (processions, public gatherings, VIP movements) are scheduled in any zone
+5. **Cross-Event Correlation** - Unique insight showing how traffic events amplify parking violations in surrounding areas
 
 ### The One-Line Pitch
 
-> *"We analyzed 298,450 real parking violations across Bengaluru to build a system that tells traffic police exactly where to deploy tomorrow — before the congestion starts."*
+> *"We analyzed 298,450 real parking violations across Bengaluru to build a system that tells traffic police exactly where to deploy tomorrow - before the congestion starts."*
 
 ---
 
 ## 3. Dataset Overview
 
-### Primary Dataset — Problem Statement 1
+### Primary Dataset - Problem Statement 1
 
 | Attribute | Value |
 |---|---|
@@ -95,7 +95,7 @@ ParkGuard transforms **reactive enforcement into predictive deployment** using 5
 | `created_datetime` | Timestamp of violation | Hour, day, month features |
 | `police_station` | Issuing station | Zone-level analysis |
 
-### Secondary Dataset — Problem Statement 2 (Correlation Only)
+### Secondary Dataset - Problem Statement 2 (Correlation Only)
 
 | Attribute | Value |
 |---|---|
@@ -104,13 +104,13 @@ ParkGuard transforms **reactive enforcement into predictive deployment** using 5
 | Event types | Planned and unplanned |
 | Event causes | Vehicle breakdown, accidents, public events, processions, VIP movements |
 
-Used exclusively to compute the **cross-event correlation** — how much parking violations spike on event days.
+Used exclusively to compute the **cross-event correlation** - how much parking violations spike on event days.
 
 ---
 
 ## 4. Key Insights from Data
 
-### Insight 1 — Top Hotspot Junctions
+### Insight 1 - Top Hotspot Junctions
 
 | Rank | Junction | Total Violations |
 |---|---|---|
@@ -120,37 +120,37 @@ Used exclusively to compute the **cross-event correlation** — how much parking
 | 4 | Sagar Theatre Junction | 10,549 |
 | 5 | Central Street Junction | 5,388 |
 
-Safina Plaza alone accounts for **5.2% of all violations citywide** — a commercial hub with no dedicated parking and heavy spillover onto the main carriageway.
+Safina Plaza alone accounts for **5.2% of all violations citywide** - a commercial hub with no dedicated parking and heavy spillover onto the main carriageway.
 
-### Insight 2 — Peak Violation Hours
+### Insight 2 - Peak Violation Hours
 
 Violations follow a counter-intuitive pattern:
-- **Primary peak: 2 AM – 6 AM** — Night-time commercial vehicle loading, autos, and overnight parking
-- **Secondary peak: 19 PM – 23 PM** — Evening commercial activity, restaurant spillover
-- **Midday trough: 11 AM – 15 PM** — Lowest violation density
+- **Primary peak: 2 AM – 6 AM** - Night-time commercial vehicle loading, autos, and overnight parking
+- **Secondary peak: 19 PM – 23 PM** - Evening commercial activity, restaurant spillover
+- **Midday trough: 11 AM – 15 PM** - Lowest violation density
 
 This means enforcement resources are needed most at **night**, not during rush hours as commonly assumed.
 
-### Insight 3 — Vehicle Type Breakdown
+### Insight 3 - Vehicle Type Breakdown
 
 - Scooters: 31.8% of violations
 - Cars: 29.8%
 - Passenger Autos: 12.7%
 - Motor Cycles: 13.7%
 
-Two-wheelers (scooters + motorcycles) account for **45.5% of all violations** — the primary enforcement target.
+Two-wheelers (scooters + motorcycles) account for **45.5% of all violations** - the primary enforcement target.
 
-### Insight 4 — Cross-Event Correlation (Unique Finding)
+### Insight 4 - Cross-Event Correlation (Unique Finding)
 
 By joining the violation dataset with the traffic event dataset on date and zone, we found:
 
 > **Parking violations spike +35% on days with public events or processions in the same zone**
 
-This means an upcoming festival or political rally is a predictable signal for enforcement pre-deployment — something no reactive system can capture.
+This means an upcoming festival or political rally is a predictable signal for enforcement pre-deployment - something no reactive system can capture.
 
-### Insight 5 — Main Road Parking Impact
+### Insight 5 - Main Road Parking Impact
 
-8% of all violations involve **parking on a main road** — these are the highest-congestion-impact violations. Junctions with high main-road-parking percentage should receive elevated enforcement priority regardless of raw violation count.
+8% of all violations involve **parking on a main road** - these are the highest-congestion-impact violations. Junctions with high main-road-parking percentage should receive elevated enforcement priority regardless of raw violation count.
 
 ---
 
@@ -242,7 +242,7 @@ This means an upcoming festival or political rally is a predictable signal for e
 
 ## 7. ML Pipeline
 
-### Step 1 — Data Cleaning
+### Step 1 - Data Cleaning
 
 ```python
 # Parse datetimes
@@ -255,9 +255,9 @@ df['violations_list'] = df['violation_type'].apply(lambda v: ast.literal_eval(v)
 df['violation_count'] = df['violations_list'].apply(len)
 ```
 
-### Step 2 — Feature Engineering
+### Step 2 - Feature Engineering
 
-**Vehicle grouping** — 22 types collapsed to 4 groups:
+**Vehicle grouping** - 22 types collapsed to 4 groups:
 
 ```python
 TWO_WHEELER  = {'SCOOTER', 'MOTOR CYCLE', 'MOPED'}
@@ -288,7 +288,7 @@ agg = df.groupby(['junction_name', 'hour', 'day_of_week']).agg(
 )
 ```
 
-**Target variable — severity score:**
+**Target variable - severity score:**
 
 ```python
 severity_score = (
@@ -299,9 +299,9 @@ severity_score = (
 )
 ```
 
-### Step 3 — DBSCAN Clustering
+### Step 3 - DBSCAN Clustering
 
-Identifies geographic hotspot zones beyond named junctions — finds clusters of violations that don't fall at a named junction.
+Identifies geographic hotspot zones beyond named junctions - finds clusters of violations that don't fall at a named junction.
 
 ```
 Algorithm : DBSCAN (ball tree, haversine metric)
@@ -310,10 +310,10 @@ min_samples: 30 points
 Sample size: 20,000 points (memory-safe for Colab)
 ```
 
-### Step 4 — XGBoost Model (v2 with log transform)
+### Step 4 - XGBoost Model (v2 with log transform)
 
 **Why log transform on target:**
-Raw severity scores have extreme outliers (some slots reach 800+ violations). Log transforming the target compresses these extremes, forcing the model to learn patterns across the entire range — especially improving accuracy at high-severity slots that matter most for enforcement.
+Raw severity scores have extreme outliers (some slots reach 800+ violations). Log transforming the target compresses these extremes, forcing the model to learn patterns across the entire range - especially improving accuracy at high-severity slots that matter most for enforcement.
 
 ```python
 # Train on log-transformed target
@@ -351,7 +351,7 @@ predictions = np.expm1(model_v2.predict(X))
 | `avg_viol_count` | Float | Avg violations per record |
 | `is_historic_peak` | Binary | Junction historically dangerous at this hour |
 
-### Step 5 — Enforcement Calendar
+### Step 5 - Enforcement Calendar
 
 Full prediction grid: 168 junctions × 24 hours × 7 days = **28,224 predictions**
 
@@ -363,7 +363,7 @@ recommended_officers = max(1, min(5, round(predicted_severity / 200)))
 
 Capped at 5 officers per slot as a practical deployment constraint.
 
-### Step 6 — What-If Simulator
+### Step 6 - What-If Simulator
 
 Event impact multipliers derived from cross-dataset correlation:
 
@@ -378,7 +378,7 @@ Event impact multipliers derived from cross-dataset correlation:
 
 ---
 
-## 8. Backend — FastAPI
+## 8. Backend - FastAPI
 
 ### Project Structure
 
@@ -569,14 +569,14 @@ echo "web: uvicorn main:app --host 0.0.0.0 --port $PORT" > Procfile
 
 ---
 
-## 9. Frontend — Next.js
+## 9. Frontend - Next.js
 
 ### Project Structure
 
 ```
 frontend/
 ├── app/
-│   ├── page.tsx               # Dashboard — summary cards
+│   ├── page.tsx               # Dashboard - summary cards
 │   ├── heatmap/page.tsx       # Interactive map with time slider
 │   ├── enforcement/page.tsx   # Weekly enforcement calendar
 │   └── simulate/page.tsx      # What-if simulator
@@ -594,7 +594,7 @@ frontend/
 
 ### Key Components
 
-#### HeatmapView.tsx — Interactive Map
+#### HeatmapView.tsx - Interactive Map
 
 ```tsx
 'use client'
@@ -645,7 +645,7 @@ export default function HeatmapView() {
           >
             <Popup>
               <b>{h.junction_name}</b><br/>
-              Violations at {hour}:00 — {h.violation_count}
+              Violations at {hour}:00 - {h.violation_count}
             </Popup>
           </CircleMarker>
         ))}
@@ -655,7 +655,7 @@ export default function HeatmapView() {
 }
 ```
 
-#### SimulatorForm.tsx — What-If Simulator
+#### SimulatorForm.tsx - What-If Simulator
 
 ```tsx
 'use client'
@@ -722,7 +722,7 @@ export default function SimulatorForm() {
       {results && (
         <div>
           <p className="text-sm text-gray-600 mb-3">
-            Event multiplier: <b>{results.multiplier}×</b> —
+            Event multiplier: <b>{results.multiplier}×</b> -
             violations increase by <b>{((results.multiplier - 1) * 100).toFixed(0)}%</b>
           </p>
           <table className="w-full text-sm border-collapse">
@@ -776,7 +776,7 @@ NEXT_PUBLIC_API_URL=https://your-railway-app.railway.app
 | Feature | Other teams | ParkGuard |
 |---|---|---|
 | Data used | Problem 1 only | Problem 1 + cross-correlation with Problem 2 |
-| Map | Static heatmap | Time-of-day slider — live updating |
+| Map | Static heatmap | Time-of-day slider - live updating |
 | Model output | "Here are hotspots" | Enforcement calendar + officer count |
 | Interactivity | None | What-if simulator judges can play with |
 | Insight | Top junctions | Violation spike % on event days (original finding) |
@@ -786,7 +786,7 @@ NEXT_PUBLIC_API_URL=https://your-railway-app.railway.app
 
 ## 11. Step-by-Step Build Guide
 
-### Phase 1 — Friday Night (4 hours)
+### Phase 1 - Friday Night (4 hours)
 
 **ML teammate:**
 - [ ] Upload both CSVs to Google Drive
@@ -812,18 +812,18 @@ NEXT_PUBLIC_API_URL=https://your-railway-app.railway.app
 
 ---
 
-### Phase 2 — Saturday Morning (5 hours)
+### Phase 2 - Saturday Morning (5 hours)
 
 **ML teammate:**
 - [ ] Run DBSCAN clustering cell
 - [ ] Run XGBoost v1 training
-- [ ] Run log-transform XGBoost v2 — target R² overall > 0.80, high severity > 0.72
+- [ ] Run log-transform XGBoost v2 - target R² overall > 0.80, high severity > 0.72
 - [ ] Save all artifacts to Drive
-- [ ] Run cross-dataset correlation cell — get the spike % number
+- [ ] Run cross-dataset correlation cell - get the spike % number
 
 **Frontend teammate:**
 - [ ] Build HeatmapView component with Leaflet
-- [ ] Add TimeSlider — hour changes update the map
+- [ ] Add TimeSlider - hour changes update the map
 - [ ] Build EnforcementTable component
 - [ ] Connect to backend stubs
 
@@ -838,22 +838,22 @@ NEXT_PUBLIC_API_URL=https://your-railway-app.railway.app
 
 ---
 
-### Phase 3 — Saturday Afternoon/Evening (8 hours)
+### Phase 3 - Saturday Afternoon/Evening (8 hours)
 
 **ML teammate:**
 - [ ] Generate full enforcement predictions grid
 - [ ] Build weekly enforcement calendar chart
-- [ ] Export all artifacts — share folder link with backend teammate
+- [ ] Export all artifacts - share folder link with backend teammate
 
 **Frontend teammate:**
 - [ ] Build SimulatorForm component
 - [ ] Build EnforcementCalendar weekly grid view
 - [ ] Add StatCards on dashboard (total violations, top hotspot, peak hour, event spike %)
-- [ ] Polish — loading states, error handling
+- [ ] Polish - loading states, error handling
 
 **Backend teammate:**
 - [ ] Implement /simulate endpoint with multipliers
-- [ ] Deploy to Railway — test live URL
+- [ ] Deploy to Railway - test live URL
 - [ ] Fix CORS, share API URL with frontend teammate
 
 **Presentation teammate:**
@@ -862,7 +862,7 @@ NEXT_PUBLIC_API_URL=https://your-railway-app.railway.app
 
 ---
 
-### Phase 4 — Sunday (7 hours buffer)
+### Phase 4 - Sunday (7 hours buffer)
 
 - [ ] All teammates: full end-to-end demo run
 - [ ] Fix anything broken

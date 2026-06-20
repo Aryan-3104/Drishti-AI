@@ -1,4 +1,4 @@
-# ParkGuard — AI-Powered Parking Enforcement Command Center
+# ParkGuard - AI-Powered Parking Enforcement Command Center
 
 **ParkGuard** is an advanced operational intelligence platform designed for the Flipkart Gridlock Hackathon 2.0. By profiling 5 months of Bengaluru traffic violation data (~300,000 GPS-tagged records), ParkGuard uses an **XGBoost machine learning model** to predict parking-induced congestion severity and recommend police officer deployment schedules across 168 junctions.
 

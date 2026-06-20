@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────
-   ParkGuard — Indian National theme
+   ParkGuard - Indian National theme
    Saffron · Navy · Cream · Gold · Green
    ───────────────────────────────────────────── */
 @theme {
-  /* Surfaces — warm light background */
-  --color-navy-950: #f8f4ee;   /* main bg  — warm parchment             */
-  --color-navy-900: #ffffff;   /* panels, cards — pure white            */
+  /* Surfaces - warm light background */
+  --color-navy-950: #f8f4ee;   /* main bg  - warm parchment             */
+  --color-navy-900: #ffffff;   /* panels, cards - pure white            */
   --color-navy-800: #f0ebe2;   /* hover, inputs                         */
   --color-edge:        #e0d8cc;   /* warm border                           */
-  --color-edge-strong: #8B1A1A;   /* maroon — active / selected borders    */
+  --color-edge-strong: #8B1A1A;   /* maroon - active / selected borders    */
 
   /* Text */
   --color-ink:   #1a1410;  /* warm near-black primary           */
@@ -18,12 +18,12 @@
   --color-ink-3: #9a8c7a;  /* muted tertiary                    */
 
   /* Accents */
-  --color-amber:    #FF6600;   /* saffron  — primary CTA / active      */
+  --color-amber:    #FF6600;   /* saffron  - primary CTA / active      */
   --color-amber-bg: #fff0e6;   /* light saffron tint bg                */
-  --color-crit:     #8B1A1A;   /* deep red / maroon — critical only    */
+  --color-crit:     #8B1A1A;   /* deep red / maroon - critical only    */
   --color-crit-bg:  #fdf0f0;
-  --color-info:     #C8962E;   /* gold    — nav hover / decorative     */
-  --color-ok:       #046A38;   /* Indian flag green — sparingly        */
+  --color-info:     #C8962E;   /* gold    - nav hover / decorative     */
+  --color-ok:       #046A38;   /* Indian flag green - sparingly        */
 
   /* Fonts */
   --font-sans:     var(--font-inter);

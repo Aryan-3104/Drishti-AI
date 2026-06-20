@@ -43,13 +43,13 @@ export default function EnforcementPlanner() {
           <h3 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">How the enforcement plan is generated</h3>
         </div>
         <p className="text-[14px] text-ink-2 leading-relaxed">
-          Every day of the week has a different violation profile — weekday mornings are dominated by commercial vehicles, weekend nights see different hotspots. This planner uses a pre-computed XGBoost prediction grid across all 168 junctions and all 24 hours to surface <span className="text-ink font-medium">exactly where officers will be needed most</span>, for whichever day you select.
+          Every day of the week has a different violation profile - weekday mornings are dominated by commercial vehicles, weekend nights see different hotspots. This planner uses a pre-computed XGBoost prediction grid across all 168 junctions and all 24 hours to surface <span className="text-ink font-medium">exactly where officers will be needed most</span>, for whichever day you select.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
-            { icon: Database,      step: 'Step 1 — Historical profiling',  body: '5 months of GPS-tagged violation records are aggregated per junction, per hour, and per day-of-week to build an accurate baseline.' },
-            { icon: Brain,         step: 'Step 2 — AI severity scoring',    body: 'An XGBoost model scores each junction for the selected day using road type, vehicle mix, and peak-hour patterns to rank hotspots.' },
-            { icon: ClipboardList, step: 'Step 3 — Deployment schedule',    body: 'Top junctions are ranked and each gets an officer count via max(1, min(5, round(severity / 200))), capped at 5 per junction.' },
+            { icon: Database,      step: 'Step 1 - Historical profiling',  body: '5 months of GPS-tagged violation records are aggregated per junction, per hour, and per day-of-week to build an accurate baseline.' },
+            { icon: Brain,         step: 'Step 2 - AI severity scoring',    body: 'An XGBoost model scores each junction for the selected day using road type, vehicle mix, and peak-hour patterns to rank hotspots.' },
+            { icon: ClipboardList, step: 'Step 3 - Deployment schedule',    body: 'Top junctions are ranked and each gets an officer count via max(1, min(5, round(severity / 200))), capped at 5 per junction.' },
           ].map((s) => (
             <div key={s.step} className="flex gap-3 p-4 bg-navy-800 border border-edge rounded">
               <s.icon className="w-4 h-4 text-ink-3 flex-shrink-0 mt-0.5" strokeWidth={2} />
@@ -76,7 +76,7 @@ export default function EnforcementPlanner() {
         </div>
       </div>
 
-      {/* Day selector — tab bar */}
+      {/* Day selector - tab bar */}
       <div className="border-b border-edge flex items-stretch overflow-x-auto">
         {DAY_NAMES.map((name, i) => (
           <button key={i} onClick={() => setDay(i)}
@@ -92,7 +92,7 @@ export default function EnforcementPlanner() {
       {!loading && !error && plan.length > 0 && (
         <div className="bg-navy-900 border border-edge rounded p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h4 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">Deployment overview — {DAY_NAMES[day]}</h4>
+            <h4 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">Deployment overview - {DAY_NAMES[day]}</h4>
             <p className="text-[12px] text-ink-3 mt-0.5">AI-recommended plan based on predicted violation severity</p>
           </div>
           <div className="flex items-center gap-3">
@@ -161,7 +161,7 @@ export default function EnforcementPlanner() {
             {/* Coverage bar */}
             <div className="space-y-1.5">
               <div className="flex justify-between text-[11px] text-ink-3">
-                <span>Junction coverage — {plan.length} of 168 monitored</span>
+                <span>Junction coverage - {plan.length} of 168 monitored</span>
                 <span className="text-amber font-mono">{coveragePct.toFixed(1)}%</span>
               </div>
               <div className="h-2 bg-navy-800 rounded-full overflow-hidden">
