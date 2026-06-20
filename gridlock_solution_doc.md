@@ -78,7 +78,7 @@ Drishti AI transforms **reactive enforcement into predictive deployment** using 
 |---|---|
 | Source | Bengaluru Traffic Police (via HackerEarth) |
 | Records | 298,450 violation records |
-| Date range | November 2023 – April 2024 (5 months) |
+| Date range | November 2023 - April 2024 (5 months) |
 | Junctions covered | 168 named junctions |
 | Police stations | 54 stations across Bengaluru |
 | Vehicle types | 22 categories |
@@ -100,7 +100,7 @@ Drishti AI transforms **reactive enforcement into predictive deployment** using 
 | Attribute | Value |
 |---|---|
 | Records | 8,173 traffic disruption events |
-| Date range | November 2023 – April 2024 (same window) |
+| Date range | November 2023 - April 2024 (same window) |
 | Event types | Planned and unplanned |
 | Event causes | Vehicle breakdown, accidents, public events, processions, VIP movements |
 
@@ -125,9 +125,9 @@ Safina Plaza alone accounts for **5.2% of all violations citywide** - a commerci
 ### Insight 2 - Peak Violation Hours
 
 Violations follow a counter-intuitive pattern:
-- **Primary peak: 2 AM – 6 AM** - Night-time commercial vehicle loading, autos, and overnight parking
-- **Secondary peak: 19 PM – 23 PM** - Evening commercial activity, restaurant spillover
-- **Midday trough: 11 AM – 15 PM** - Lowest violation density
+- **Primary peak: 2 AM - 6 AM** - Night-time commercial vehicle loading, autos, and overnight parking
+- **Secondary peak: 19 PM - 23 PM** - Evening commercial activity, restaurant spillover
+- **Midday trough: 11 AM - 15 PM** - Lowest violation density
 
 This means enforcement resources are needed most at **night**, not during rush hours as commonly assumed.
 
@@ -338,7 +338,7 @@ predictions = np.expm1(model_v2.predict(X))
 | Feature | Type | Description |
 |---|---|---|
 | `junction_encoded` | Categorical | Label-encoded junction ID |
-| `hour` | Numeric | Hour of day (0–23) |
+| `hour` | Numeric | Hour of day (0-23) |
 | `day_of_week` | Numeric | Day (0=Mon, 6=Sun) |
 | `is_weekend` | Binary | Saturday or Sunday |
 | `peak_bucket` | Ordinal | 0=low, 1=medium, 2=high peak hour |
@@ -791,7 +791,7 @@ NEXT_PUBLIC_API_URL=https://your-railway-app.railway.app
 **ML teammate:**
 - [ ] Upload both CSVs to Google Drive
 - [ ] Open notebook in Colab, mount Drive
-- [ ] Run cells 1–4 (imports, loading, feature engineering, EDA)
+- [ ] Run cells 1-4 (imports, loading, feature engineering, EDA)
 - [ ] Verify charts render correctly
 
 **Frontend teammate:**
@@ -808,7 +808,7 @@ NEXT_PUBLIC_API_URL=https://your-railway-app.railway.app
 
 **Presentation teammate:**
 - [ ] Lock the narrative: "reactive → predictive enforcement"
-- [ ] Slides 1–3: Problem, Why it's hard today, Our solution
+- [ ] Slides 1-3: Problem, Why it's hard today, Our solution
 
 ---
 
@@ -833,7 +833,7 @@ NEXT_PUBLIC_API_URL=https://your-railway-app.railway.app
 - [ ] Test all endpoints with curl / Postman
 
 **Presentation teammate:**
-- [ ] Slides 4–8: Data overview, key insights, correlation finding, model approach
+- [ ] Slides 4-8: Data overview, key insights, correlation finding, model approach
 - [ ] Get chart PNGs from ML teammate
 
 ---
@@ -857,7 +857,7 @@ NEXT_PUBLIC_API_URL=https://your-railway-app.railway.app
 - [ ] Fix CORS, share API URL with frontend teammate
 
 **Presentation teammate:**
-- [ ] Slides 9–12: Demo walkthrough, model results, impact potential
+- [ ] Slides 9-12: Demo walkthrough, model results, impact potential
 - [ ] Record 2-min demo video
 
 ---
@@ -903,7 +903,7 @@ NEXT_PUBLIC_API_URL=https://your-railway-app.railway.app
 | Metric | Value |
 |---|---|
 | Total violations analyzed | 298,450 |
-| Date range | 5 months (Nov 2023 – Apr 2024) |
+| Date range | 5 months (Nov 2023 - Apr 2024) |
 | Junctions covered | 168 named junctions |
 | Prediction grid size | 28,224 slots (168 × 24 × 7) |
 | GPS coverage | 100% |

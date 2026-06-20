@@ -9,18 +9,18 @@ import 'leaflet/dist/leaflet.css';
 
 const COLOR_SCALE = [
   { min: 1500, color: '#b91c1c', label: '> 1,500 - critical' },
-  { min: 800,  color: '#dc2626', label: '800–1,500 - high'   },
-  { min: 400,  color: '#f97316', label: '400–800 - medium'   },
-  { min: 150,  color: '#fb923c', label: '150–400 - low'      },
+  { min: 800,  color: '#dc2626', label: '800-1,500 - high'   },
+  { min: 400,  color: '#f97316', label: '400-800 - medium'   },
+  { min: 150,  color: '#fb923c', label: '150-400 - low'      },
   { min: 0,    color: '#fbbf24', label: '< 150 - minimal'    },
 ];
 
 const TIME_BANDS = [
-  { label: 'Late night', range: '00–06', from: 0,  to: 5  },
-  { label: 'Morning',    range: '06–12', from: 6,  to: 11 },
-  { label: 'Afternoon',  range: '12–17', from: 12, to: 16 },
-  { label: 'Evening',    range: '17–21', from: 17, to: 20 },
-  { label: 'Night',      range: '21–24', from: 21, to: 23 },
+  { label: 'Late night', range: '00-06', from: 0,  to: 5  },
+  { label: 'Morning',    range: '06-12', from: 6,  to: 11 },
+  { label: 'Afternoon',  range: '12-17', from: 12, to: 16 },
+  { label: 'Evening',    range: '17-21', from: 17, to: 20 },
+  { label: 'Night',      range: '21-24', from: 21, to: 23 },
 ];
 
 export default function MapInner({ initialHour }: { initialHour: number }) {

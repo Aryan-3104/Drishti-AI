@@ -15,7 +15,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky top-0 z-50 h-14 bg-navy-900 border-b border-edge" style={{ boxShadow: '0 1px 0 rgba(0,0,0,0.06)' }}>
+    <nav className="sticky top-0 z-[1050] h-14 bg-navy-900 border-b border-edge" style={{ boxShadow: '0 1px 0 rgba(0,0,0,0.06)', zIndex: 1050 }}>
       <div className="h-full max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
 
         {/* Logo */}

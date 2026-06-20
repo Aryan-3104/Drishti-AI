@@ -61,7 +61,7 @@ export default function EnforcementPlanner() {
           ))}
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {[['168','Junctions monitored'],['5 mo','Training data'],['24×7','Hourly predictions'],['1–5','Officers per junction']].map(([v, l]) => (
+          {[['168','Junctions monitored'],['5 mo','Training data'],['24×7','Hourly predictions'],['1-5','Officers per junction']].map(([v, l]) => (
             <div key={l} className="bg-navy-800 border border-edge rounded px-4 py-3 text-center">
               <p className="font-mono text-[20px] font-medium text-amber">{v}</p>
               <p className="text-[11px] text-ink-3 mt-0.5">{l}</p>
