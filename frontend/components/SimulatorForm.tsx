@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { api, SimulationResponse } from '../lib/api';
-import { Play, Info, AlertTriangle, Minus, Music, Flag, Navigation, Megaphone, HardHat } from 'lucide-react';
+import { Info, AlertTriangle, Minus, Music, Flag, Navigation, Megaphone, HardHat } from 'lucide-react';
 
 const EVENT_TYPES = [
   { value: 'none',         label: 'No event',    sublabel: 'baseline', multiplier: 1.00, icon: Minus      },
@@ -37,12 +37,21 @@ export default function SimulatorForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function runSimulation() {
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  async function fetchSimulation(evt: string, h: number, d: number, n: number) {
     setLoading(true); setError(null);
-    try { const res = await api.simulateEvent(eventType, hour, day, topN); setResults(res); }
+    try { const res = await api.simulateEvent(evt, h, d, n); setResults(res); }
     catch (err: any) { setError(err.message || 'An error occurred'); }
     finally { setLoading(false); }
   }
+
+  // Auto-run with 400ms debounce whenever any param changes
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => fetchSimulation(eventType, hour, day, topN), 400);
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
+  }, [eventType, hour, day, topN]);
 
   const fmt = (name: string) => name.replace(/^BTP\d+\s*-\s*/, '');
   const selectedEvent = EVENT_TYPES.find((e) => e.value === eventType)!;
@@ -144,19 +153,17 @@ export default function SimulatorForm() {
         </div>
 
         {/* Footer */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-edge">
+        <div className="flex items-center justify-between gap-4 pt-4 border-t border-edge">
           <div className="flex items-center gap-2 text-[13px] text-ink-2">
             <Info className="w-4 h-4 text-info flex-shrink-0" strokeWidth={2} />
             <span>Applying <span className="font-mono text-ink">{selectedEvent.multiplier}×</span> multiplier to baseline severity.</span>
           </div>
-          <button onClick={runSimulation} disabled={loading}
-            className="w-full sm:w-auto bg-amber text-navy-950 font-semibold text-[14px] px-6 py-2.5 rounded transition-[filter] hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-            {loading ? (
-              <><div className="w-4 h-4 border-2 border-navy-950 border-t-transparent rounded-full animate-spin" /><span>Simulating…</span></>
-            ) : (
-              <><Play className="w-4 h-4" strokeWidth={2} /><span>Run simulation</span></>
-            )}
-          </button>
+          {loading && (
+            <div className="flex items-center gap-2 text-[12px] text-ink-3">
+              <div className="w-3.5 h-3.5 border-2 border-amber border-t-transparent rounded-full animate-spin" />
+              <span>Updating…</span>
+            </div>
+          )}
         </div>
       </div>
 

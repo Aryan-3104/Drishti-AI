@@ -6,6 +6,7 @@ import { api, Hotspot, HourlyStat } from '@/lib/api';
 import StatCard from '@/components/StatCard';
 import ViolationChart from '@/components/ViolationChart';
 import LiveNowPanel from '@/components/LiveNowPanel';
+import PredictionConsole from '@/components/PredictionConsole';
 import { Car, AlertOctagon, Clock, TrendingUp, ChevronRight, Map, Calendar, Zap, Brain, ArrowRight } from 'lucide-react';
 
 const CAPABILITIES = [
@@ -58,6 +59,9 @@ export default function Dashboard() {
         <StatCard title="Peak violation hours" value="02:00–06:00" subtitle="Night commercial · 19:00–23:00 secondary" badge="Active window" badgeTone="amber" icon={Clock} />
         <StatCard title="Event amplification" value="+35%" animateValue={35} animatePrefix="+" animateSuffix="%" subtitle="During public rallies / festivals" badge="Predictive pre-deployment" badgeTone="healthy" icon={TrendingUp} />
       </div>
+
+      {/* Live prediction console — real XGBoost inference + historical CSV */}
+      <PredictionConsole />
 
       {/* Hotspots + chart */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
