@@ -24,9 +24,13 @@ const TIME_BANDS = [
 ];
 
 export default function MapInner({ initialHour }: { initialHour: number }) {
-  const [hour, setHour] = useState(initialHour);
+  const [totalMinutes, setTotalMinutes] = useState(initialHour * 60);
   const [hotspots, setHotspots] = useState<Hotspot[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const hour = Math.floor(totalMinutes / 60);
+  const minute = totalMinutes % 60;
+  const displayTime = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
 
   useEffect(() => {
     setLoading(true);
@@ -50,12 +54,12 @@ export default function MapInner({ initialHour }: { initialHour: number }) {
           <div className="flex items-center gap-2.5">
             <Clock className="w-4 h-4 text-ink-3" strokeWidth={2} />
             <div>
-              <h4 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">Hour of day</h4>
-              <p className="text-[12px] text-ink-3 mt-0.5">Drag to filter hotspots by time</p>
+              <h4 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">Time of day</h4>
+              <p className="text-[12px] text-ink-3 mt-0.5">Drag to filter hotspots by time · hotspot data updates per hour</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[24px] font-medium text-ink leading-none">{String(hour).padStart(2,'0')}:00</span>
+            <span className="font-mono text-[24px] font-medium text-ink leading-none">{displayTime}</span>
             <span className="text-[11px] text-amber border border-amber/30 bg-amber-bg rounded px-1.5 py-0.5">{periodLabel}</span>
           </div>
         </div>
@@ -63,14 +67,14 @@ export default function MapInner({ initialHour }: { initialHour: number }) {
         {/* Track */}
         <div className="relative">
           <div className="relative h-1.5 rounded-full bg-edge">
-            <div className="absolute inset-y-0 left-0 rounded-full bg-amber" style={{ width: `${(hour / 23) * 100}%` }} />
-            <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 bg-amber rounded-full border-2 border-navy-900 pointer-events-none" style={{ left: `${(hour / 23) * 100}%` }} />
+            <div className="absolute inset-y-0 left-0 rounded-full bg-amber" style={{ width: `${(totalMinutes / 1439) * 100}%` }} />
+            <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 bg-amber rounded-full border-2 border-navy-900 pointer-events-none" style={{ left: `${(totalMinutes / 1439) * 100}%` }} />
           </div>
-          <input type="range" min={0} max={23} value={hour} onChange={(e) => setHour(Number(e.target.value))}
+          <input type="range" min={0} max={1439} value={totalMinutes} onChange={(e) => setTotalMinutes(Number(e.target.value))}
             className="absolute inset-0 w-full opacity-0 cursor-pointer h-full" />
         </div>
 
-        {/* Tick marks */}
+        {/* Tick marks — one per hour */}
         <div className="flex justify-between">
           {Array.from({ length: 24 }, (_, i) => i).map((h) => {
             const isActive = h === hour;
@@ -114,7 +118,7 @@ export default function MapInner({ initialHour }: { initialHour: number }) {
 
         <MapContainer center={[12.9716, 77.5946]} zoom={12} style={{ height: '100%', width: '100%' }} zoomControl={true}>
           <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
             attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
           />
           {hotspots.map((h, i) => {

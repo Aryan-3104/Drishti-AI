@@ -69,20 +69,20 @@ h1, h2, h3, h4, h5 {
 
 /* ─── Leaflet ─── */
 .leaflet-container {
-  background-color: #1a1a2e !important;
+  background-color: #e8e0d5 !important;
   font-family: var(--font-inter), sans-serif !important;
 }
 
 .custom-leaflet-popup .leaflet-popup-content-wrapper {
-  background: #18181c !important;
-  color: #ffffff !important;
-  border: 1px solid #8B1A1A !important;
-  border-radius: 4px !important;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.5) !important;
+  background: #ffffff !important;
+  color: #1a1410 !important;
+  border: 1px solid #e0d8cc !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
 }
 
 .custom-leaflet-popup .leaflet-popup-tip {
-  background: #18181c !important;
+  background: #ffffff !important;
 }
 
 .deployment-pin { background: transparent !important; border: none !important; }
