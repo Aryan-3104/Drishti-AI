@@ -127,4 +127,20 @@ export const api = {
     params.append('junction', junction);
     return fetchJson<HourlyStatsResponse>(`/hourly-stats?${params.toString()}`);
   },
+
+  /**
+   * Get all hourly hotspots data from hourly_junction_stats.csv
+   */
+  async getAllHoursHotspots(): Promise<{ hotspots: AllHoursHotspot[] }> {
+    return fetchJson<{ hotspots: AllHoursHotspot[] }>('/hotspots/all-hours');
+  },
 };
+
+export interface AllHoursHotspot {
+  junction_name: string;
+  hour: number;
+  violation_count: number;
+  lat: number;
+  lon: number;
+}
+

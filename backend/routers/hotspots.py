@@ -36,3 +36,13 @@ async def get_hotspots(
         "hour": hour,
         "count": len(result)
     }
+
+@router.get("/hotspots/all-hours")
+async def get_all_hours_hotspots(request: Request):
+    """
+    Return all hourly hotspots data from hourly_junction_stats.csv.
+    """
+    hourly = request.app.state.hourly
+    result = hourly.to_dict(orient="records")
+    return {"hotspots": result}
+
