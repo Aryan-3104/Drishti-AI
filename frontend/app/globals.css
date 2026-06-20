@@ -1,28 +1,109 @@
 @import "tailwindcss";
 
-:root {
-  --background: #020617; /* Dark slate 950 */
-  --foreground: #f8fafc; /* Slate 50 */
+/* ─────────────────────────────────────────────
+   ParkGuard — Indian National theme
+   Saffron · Navy · Cream · Gold · Green
+   ───────────────────────────────────────────── */
+@theme {
+  /* Surfaces — warm light background */
+  --color-navy-950: #f8f4ee;   /* main bg  — warm parchment             */
+  --color-navy-900: #ffffff;   /* panels, cards — pure white            */
+  --color-navy-800: #f0ebe2;   /* hover, inputs                         */
+  --color-edge:        #e0d8cc;   /* warm border                           */
+  --color-edge-strong: #8B1A1A;   /* maroon — active / selected borders    */
+
+  /* Text */
+  --color-ink:   #1a1410;  /* warm near-black primary           */
+  --color-ink-2: #5c4f3d;  /* warm brown-gray secondary         */
+  --color-ink-3: #9a8c7a;  /* muted tertiary                    */
+
+  /* Accents */
+  --color-amber:    #FF6600;   /* saffron  — primary CTA / active      */
+  --color-amber-bg: #fff0e6;   /* light saffron tint bg                */
+  --color-crit:     #8B1A1A;   /* deep red / maroon — critical only    */
+  --color-crit-bg:  #fdf0f0;
+  --color-info:     #C8962E;   /* gold    — nav hover / decorative     */
+  --color-ok:       #046A38;   /* Indian flag green — sparingly        */
+
+  /* Fonts */
+  --font-sans:     var(--font-inter);
+  --font-display:  var(--font-fraunces);
+  --font-mono:     var(--font-jetbrains);
+  --font-kannada:  var(--font-noto-kannada);
 }
+
+:root {
+  --background: #f8f4ee;
+  --foreground: #1a1410;
+}
+
+html { background-color: var(--background); }
 
 body {
   background-color: var(--background) !important;
   color: var(--foreground) !important;
+  font-family: var(--font-raleway), system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Leaflet map styles */
+/* Fraunces for all headings */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 600;
+}
+
+/* Kannada text */
+.text-kannada {
+  font-family: var(--font-noto-kannada), sans-serif;
+}
+
+::selection { background: rgba(255, 102, 0, 0.25); color: #FDF6EC; }
+
+/* Scrollbars */
+*::-webkit-scrollbar { width: 6px; height: 6px; }
+*::-webkit-scrollbar-track { background: #f0ebe2; }
+*::-webkit-scrollbar-thumb { background: #e0d8cc; border-radius: 2px; }
+*::-webkit-scrollbar-thumb:hover { background: #8B1A1A; }
+
+/* ─── Leaflet ─── */
 .leaflet-container {
-  background-color: #020617 !important;
+  background-color: #e8e0d5 !important;
+  font-family: var(--font-inter), sans-serif !important;
 }
 
 .custom-leaflet-popup .leaflet-popup-content-wrapper {
-  background: #0f172a !important;
-  color: #f8fafc !important;
-  border: 1px solid #1e293b !important;
-  border-radius: 12px !important;
+  background: #ffffff !important;
+  color: #1a1410 !important;
+  border: 1px solid #e0d8cc !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
 }
 
 .custom-leaflet-popup .leaflet-popup-tip {
-  background: #0f172a !important;
-  border: 1px solid #1e293b !important;
+  background: #ffffff !important;
 }
+
+.deployment-pin { background: transparent !important; border: none !important; }
+
+/* Gold decorative divider */
+.divider-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #C8962E 30%, #C8962E 70%, transparent);
+  opacity: 0.4;
+}
+
+/* ─── Table row stagger ─── */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.row-animate { animation: fadeSlideIn 0.25s ease-out both; }
+
+/* ─── Status dot pulse ─── */
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+.status-pulse { animation: statusPulse 2s ease-in-out infinite; }

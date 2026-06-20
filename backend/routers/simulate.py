@@ -48,7 +48,7 @@ async def simulate(
 
     # Compute adjusted severity and recommended officer count
     subset["adjusted_severity"] = (subset["predicted_severity"] * multiplier).round(2)
-    subset["recommended_officers"] = (subset["adjusted_severity"] / 200).apply(
+    subset["recommended_officers"] = (subset["adjusted_severity"] / 14).apply(
         lambda x: max(1, min(5, round(x)))
     )
 

@@ -25,7 +25,7 @@ def get_plan_for_day(grid_df, meta_df, day_of_week: int, top_n: int = 10):
     )
 
     # Calculate officer count recommendation
-    best["recommended_officers"] = (best["predicted_severity"] / 200).apply(
+    best["recommended_officers"] = (best["predicted_severity"] / 14).apply(
         lambda x: max(1, min(5, round(x)))
     )
 
