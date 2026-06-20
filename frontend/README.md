@@ -1,6 +1,6 @@
-# ParkGuard — Next.js Dashboard Frontend Client
+# Drishti AI — Next.js Dashboard Frontend Client
 
-This is the Next.js 15 frontend client for **ParkGuard** — AI-Powered Parking Enforcement Intelligence. It provides a visual dashboard to interact with the FastAPI backend, displaying interactive Leaflet hotspot maps, Recharts violation charts, weekly calendar pre-deployments, and event simulators.
+This is the Next.js 15 frontend client for **Drishti AI** — AI-Powered Parking Enforcement Intelligence. It provides a visual dashboard to interact with the FastAPI backend, displaying interactive Leaflet hotspot maps, Recharts violation charts, weekly calendar pre-deployments, and event simulators.
 
 ---
 

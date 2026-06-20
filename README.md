@@ -1,6 +1,6 @@
-# ParkGuard — AI-Powered Parking Enforcement Intelligence (FastAPI Backend)
+# Drishti AI — AI-Powered Parking Enforcement Intelligence (FastAPI Backend)
 
-This is the FastAPI backend repository for **ParkGuard**, designed for the Flipkart Gridlock Hackathon 2.0. The system leverages 5 months of Bengaluru traffic violation data and a trained XGBoost model to provide predictive deployment calendar recommendations, hotspot maps, and event-based parking congestion simulators.
+This is the FastAPI backend repository for **Drishti AI**, designed for the Flipkart Gridlock Hackathon 2.0. The system leverages 5 months of Bengaluru traffic violation data and a trained XGBoost model to provide predictive deployment calendar recommendations, hotspot maps, and event-based parking congestion simulators.
 
 ---
 
@@ -91,7 +91,7 @@ Flipkart/
 * **Response**:
   ```json
   {
-      "status": "ParkGuard API running",
+      "status": "Drishti AI API running",
       "version": "1.0",
       "description": "AI-Powered Parking Enforcement Intelligence API"
   }
