@@ -1,6 +1,6 @@
 /**
  * Complete Kannada translations for all 168 BTP-monitored Bengaluru junctions.
- * Keyed by BTP code for exact matching — no partial string guessing.
+ * Keyed by BTP code for exact matching - no partial string guessing.
  */
 const JUNCTION_KANNADA: Record<string, string> = {
   'BTP001': '೧೦ನೇ ಕ್ರಾಸ್, ಡಾ. ರಾಜ್‌ಕುಮಾರ್ ರಸ್ತೆ',

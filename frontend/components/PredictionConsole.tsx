@@ -225,7 +225,7 @@ export default function PredictionConsole() {
             <div>
               <p className="text-[11px] text-ink-3">Actual violations at {hourLabel}:00</p>
               <p className="font-mono text-[36px] leading-none font-medium text-ink">
-                {histAtHour !== null ? histAtHour.toLocaleString() : '—'}
+                {histAtHour !== null ? histAtHour.toLocaleString() : '-'}
               </p>
             </div>
             {/* Mini 24h chart with selected hour marked */}
@@ -264,7 +264,7 @@ export default function PredictionConsole() {
                 <span className="font-mono text-amber">{prediction.predicted_severity.toLocaleString()}</span> and recommends{' '}
                 <span className="text-amber font-medium">{prediction.recommended_officers} officer{prediction.recommended_officers > 1 ? 's' : ''}</span>
                 {histAtHour !== null && (
-                  <> — consistent with a historical average of <span className="font-mono text-ink">{histAtHour.toLocaleString()}</span> violations recorded in this hour.</>
+                  <> - consistent with a historical average of <span className="font-mono text-ink">{histAtHour.toLocaleString()}</span> violations recorded in this hour.</>
                 )}
               </p>
             </div>

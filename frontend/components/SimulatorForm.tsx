@@ -178,7 +178,7 @@ export default function SimulatorForm() {
         <div className="bg-navy-900 border border-edge rounded overflow-hidden">
           <div className="p-4 border-b border-edge flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h4 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">Simulation active — {selectedEvent.label}</h4>
+              <h4 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">Simulation active - {selectedEvent.label}</h4>
               <p className="text-[12px] text-ink-3 mt-0.5">Multiplier applied across all {results.results.length} junctions</p>
             </div>
             <div className="flex items-center gap-3">

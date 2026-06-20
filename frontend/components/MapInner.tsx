@@ -8,11 +8,11 @@ import { toKannada } from '../lib/kannada';
 import 'leaflet/dist/leaflet.css';
 
 const COLOR_SCALE = [
-  { min: 1500, color: '#b91c1c', label: '> 1,500 — critical' },
-  { min: 800,  color: '#dc2626', label: '800–1,500 — high'   },
-  { min: 400,  color: '#f97316', label: '400–800 — medium'   },
-  { min: 150,  color: '#fb923c', label: '150–400 — low'      },
-  { min: 0,    color: '#fbbf24', label: '< 150 — minimal'    },
+  { min: 1500, color: '#b91c1c', label: '> 1,500 - critical' },
+  { min: 800,  color: '#dc2626', label: '800–1,500 - high'   },
+  { min: 400,  color: '#f97316', label: '400–800 - medium'   },
+  { min: 150,  color: '#fb923c', label: '150–400 - low'      },
+  { min: 0,    color: '#fbbf24', label: '< 150 - minimal'    },
 ];
 
 const TIME_BANDS = [
@@ -130,7 +130,7 @@ export default function MapInner({ initialHour }: { initialHour: number }) {
             className="absolute inset-0 w-full opacity-0 cursor-pointer h-full" />
         </div>
 
-        {/* Tick marks — one per hour */}
+        {/* Tick marks - one per hour */}
         <div className="flex justify-between">
           {Array.from({ length: 24 }, (_, i) => i).map((h) => {
             const isActive = h === Math.floor(hour);

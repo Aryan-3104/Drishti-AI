@@ -37,7 +37,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="Drishti AI API",
-    description="FastAPI Backend for Drishti AI — AI-Powered Parking Enforcement Intelligence",
+    description="FastAPI Backend for Drishti AI - AI-Powered Parking Enforcement Intelligence",
     version="1.0",
     lifespan=lifespan
 )

@@ -21,7 +21,7 @@ export default function DeploymentMap({ plan, dayName }: { plan: PlanItem[]; day
         <div className="flex items-center gap-2">
           <MapIcon className="w-4 h-4 text-ink-3" strokeWidth={2} />
           <div>
-            <h3 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">Deployment map — {dayName}</h3>
+            <h3 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">Deployment map - {dayName}</h3>
             <p className="text-[12px] text-ink-3 mt-0.5">Numbered pins mark each junction by deployment priority. Click a pin for officer count and peak hour.</p>
           </div>
         </div>

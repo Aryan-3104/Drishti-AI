@@ -19,13 +19,13 @@ export default function SimulatePage() {
           <h3 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">How this simulator works</h3>
         </div>
         <p className="text-[14px] text-ink-2 leading-relaxed">
-          Real-world events — festivals, VIP movements, protests, road works — cause parking violations to spike beyond their normal baseline. This simulator predicts <span className="text-ink font-medium">where that pressure will hit hardest</span> and tells you exactly how many officers to deploy there, before the event happens.
+          Real-world events - festivals, VIP movements, protests, road works - cause parking violations to spike beyond their normal baseline. This simulator predicts <span className="text-ink font-medium">where that pressure will hit hardest</span> and tells you exactly how many officers to deploy there, before the event happens.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
-            { icon: Brain,      step: 'Step 1 — Baseline prediction',     body: 'The XGBoost model predicts normal violation severity at every junction for your chosen day and hour, using 5 months of historical data.' },
-            { icon: TrendingUp, step: 'Step 2 — Multiplier applied',       body: 'A calibrated spike multiplier (e.g. 1.35× for festivals) is applied to every junction\'s baseline, simulating the event\'s congestion impact.' },
-            { icon: Shield,     step: 'Step 3 — Deployment recommended',   body: 'The top N affected junctions are ranked and each gets an officer count so teams can be pre-positioned before the event starts.' },
+            { icon: Brain,      step: 'Step 1 - Baseline prediction',     body: 'The XGBoost model predicts normal violation severity at every junction for your chosen day and hour, using 5 months of historical data.' },
+            { icon: TrendingUp, step: 'Step 2 - Multiplier applied',       body: 'A calibrated spike multiplier (e.g. 1.35× for festivals) is applied to every junction\'s baseline, simulating the event\'s congestion impact.' },
+            { icon: Shield,     step: 'Step 3 - Deployment recommended',   body: 'The top N affected junctions are ranked and each gets an officer count so teams can be pre-positioned before the event starts.' },
           ].map((s) => (
             <div key={s.step} className="flex gap-3 p-4 bg-navy-800 border border-edge rounded">
               <s.icon className="w-4 h-4 text-ink-3 flex-shrink-0 mt-0.5" strokeWidth={2} />
