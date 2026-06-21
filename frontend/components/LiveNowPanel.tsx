@@ -82,38 +82,43 @@ export default function LiveNowPanel() {
           <div>
             <div className="flex items-center justify-between">
               <span className="text-[11px] uppercase tracking-[0.08em] text-ink-3">Current status</span>
-              <button
-                type="button"
-                onClick={() => {
-                  if (!isSimulated) {
-                    setSimHour(systemNow?.getHours() ?? 13);
-                  }
-                  setIsSimulated(!isSimulated);
-                }}
-                className={`text-[10px] font-medium font-mono px-2 py-0.5 rounded border cursor-pointer select-none transition-all flex items-center gap-1 ${
-                  isSimulated
-                    ? 'bg-amber-500/10 border-amber-500/30 text-amber hover:bg-amber-500/20'
-                    : 'bg-navy-800 border-edge text-ink-3 hover:text-ink hover:border-edge-strong'
-                }`}
-              >
-                {isSimulated ? (
-                  <>
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-amber"></span>
-                    </span>
-                    Simulated Time
-                  </>
-                ) : (
-                  <>
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-                    </span>
-                    Live Time
-                  </>
-                )}
-              </button>
+              <div className="flex items-center gap-1 bg-navy-950 p-0.5 rounded border border-edge/60">
+                <button
+                  type="button"
+                  onClick={() => setIsSimulated(false)}
+                  className={`text-[10px] font-medium font-mono px-2 py-0.5 rounded transition-all flex items-center gap-1.5 cursor-pointer select-none ${
+                    !isSimulated
+                      ? 'bg-navy-800 text-emerald-400 border border-edge/50 shadow-sm font-semibold'
+                      : 'border border-transparent text-ink-3 hover:text-ink-2'
+                  }`}
+                >
+                  <span className="relative flex h-1.5 w-1.5">
+                    {!isSimulated && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>}
+                    <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${!isSimulated ? 'bg-emerald-500' : 'bg-ink-3'}`}></span>
+                  </span>
+                  Live
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!isSimulated) {
+                      setSimHour(systemNow?.getHours() ?? 13);
+                    }
+                    setIsSimulated(true);
+                  }}
+                  className={`text-[10px] font-medium font-mono px-2 py-0.5 rounded transition-all flex items-center gap-1.5 cursor-pointer select-none ${
+                    isSimulated
+                      ? 'bg-navy-800 text-amber border border-edge/50 shadow-sm font-semibold'
+                      : 'border border-transparent text-ink-3 hover:text-ink-2'
+                  }`}
+                >
+                  <span className="relative flex h-1.5 w-1.5">
+                    {isSimulated && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber opacity-75"></span>}
+                    <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${isSimulated ? 'bg-amber' : 'bg-ink-3'}`}></span>
+                  </span>
+                  Simulate
+                </button>
+              </div>
             </div>
             <span className="font-mono text-[32px] leading-none font-medium text-ink block mt-1">{clock}</span>
             <p className="text-[14px] text-ink mt-1.5">{statusSentence(now.getHours())}</p>
