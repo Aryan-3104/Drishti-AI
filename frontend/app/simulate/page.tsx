@@ -59,7 +59,7 @@ export default function SimulatePage() {
         <div className="flex items-start gap-3 bg-navy-800 border border-edge rounded p-4">
           <AlertTriangle className="w-4 h-4 text-amber flex-shrink-0 mt-0.5" strokeWidth={2} />
           <p className="text-[13px] text-ink-2 leading-relaxed">
-            <span className="text-amber font-medium">Pre-deployment tip:</span> Run the simulation at least 2–3 hours before an event starts. The model is most accurate for known scheduled events (concerts, state visits, religious processions) where similar historical patterns exist in the training data.
+            <span className="text-amber font-medium">Pre-deployment tip:</span> Run the simulation at least 2-3 hours before an event starts. The model is most accurate for known scheduled events (concerts, state visits, religious processions) where similar historical patterns exist in the training data.
           </p>
         </div>
       </div>

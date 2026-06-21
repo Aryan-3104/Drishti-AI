@@ -61,7 +61,7 @@ export default function OperationalTicker() {
   ];
 
   return (
-    <div className="sticky top-14 z-40 h-9 bg-navy-900 border-b border-edge">
+    <div className="sticky top-14 z-[1040] h-9 bg-navy-900 border-b border-edge" style={{ zIndex: 1040 }}>
       <div className="h-full max-w-7xl mx-auto px-4 md:px-8 flex items-center overflow-x-auto whitespace-nowrap text-[12px]">
         <span className="font-mono text-ink font-medium pr-4">{clock}</span>
         {items.map((it) => (

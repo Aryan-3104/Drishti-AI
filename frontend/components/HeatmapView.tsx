@@ -15,9 +15,9 @@ const MapInner = dynamic(() => import('./MapInner'), {
 
 const COLOR_SCALE = [
   { color: '#b91c1c', label: 'Critical', range: '> 1,500 / hr'  },
-  { color: '#dc2626', label: 'High',     range: '800–1,500 / hr' },
-  { color: '#f97316', label: 'Medium',   range: '400–800 / hr'   },
-  { color: '#fb923c', label: 'Low',      range: '150–400 / hr'   },
+  { color: '#dc2626', label: 'High',     range: '800-1,500 / hr' },
+  { color: '#f97316', label: 'Medium',   range: '400-800 / hr'   },
+  { color: '#fb923c', label: 'Low',      range: '150-400 / hr'   },
   { color: '#fbbf24', label: 'Minimal',  range: '< 150 / hr'     },
 ];
 
@@ -88,9 +88,9 @@ export default function HeatmapView() {
           <p className="text-[11px] uppercase tracking-[0.08em] text-ink-2">What to look for at different hours</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { icon: TrendingUp,    label: 'Late night (00:00–06:00)',    desc: 'Highest overall counts. Commercial trucks and delivery vehicles dominate near markets and freight routes.' },
-              { icon: AlertTriangle, label: 'Evening peak (19:00–23:00)',  desc: 'Second major spike. Two-wheelers and cars park illegally near restaurants, malls and entertainment zones.' },
-              { icon: Clock,         label: 'Daytime (09:00–17:00)',       desc: 'Comparatively calmer. Lower volume near commercial zones - ideal window for routine patrol redeployment.' },
+              { icon: TrendingUp,    label: 'Late night (00:00-06:00)',    desc: 'Highest overall counts. Commercial trucks and delivery vehicles dominate near markets and freight routes.' },
+              { icon: AlertTriangle, label: 'Evening peak (19:00-23:00)',  desc: 'Second major spike. Two-wheelers and cars park illegally near restaurants, malls and entertainment zones.' },
+              { icon: Clock,         label: 'Daytime (09:00-17:00)',       desc: 'Comparatively calmer. Lower volume near commercial zones - ideal window for routine patrol redeployment.' },
             ].map((tip) => (
               <div key={tip.label} className="flex gap-3 p-4 border border-edge bg-navy-800 rounded">
                 <tip.icon className="w-4 h-4 flex-shrink-0 mt-0.5 text-ink-3" strokeWidth={2} />

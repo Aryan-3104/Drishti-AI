@@ -57,7 +57,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard title="Total violations analysed" value="298,450" animateValue={298450} subtitle="Collected across 5 months" badge="100% GPS coverage" badgeTone="info" icon={Car} />
         <StatCard title="Top hotspot zone" value="Safina Plaza" animateValue={8785} animateSuffix=" violations" subtitle="5.2% of all violations citywide" badge="Critical zone" badgeTone="critical" icon={AlertOctagon} />
-        <StatCard title="Peak violation hours" value="02:00–06:00" subtitle="Night commercial · 19:00–23:00 secondary" badge="Active window" badgeTone="amber" icon={Clock} />
+        <StatCard title="Peak violation hours" value="02:00-06:00" subtitle="Night commercial · 19:00-23:00 secondary" badge="Active window" badgeTone="amber" icon={Clock} />
         <StatCard title="Event amplification" value="+35%" animateValue={35} animatePrefix="+" animateSuffix="%" subtitle="During public rallies / festivals" badge="Predictive pre-deployment" badgeTone="healthy" icon={TrendingUp} />
       </div>
 
@@ -86,7 +86,7 @@ export default function Dashboard() {
                     <div className="truncate pr-3">
                       <p className={`text-[13px] truncate font-medium ${isSelected ? 'text-ink' : 'text-ink-2'}`}>{formatJunctionName(item.junction_name)}</p>
                       {toKannada(item.junction_name) && (
-                        <p className="text-[11px] text-ink-3 truncate" className="text-kannada">{toKannada(item.junction_name)}</p>
+                        <p className="text-[11px] text-ink-3 truncate text-kannada">{toKannada(item.junction_name)}</p>
                       )}
                       <p className="font-mono text-[11px] text-ink-3 mt-0.5">{item.top_vehicle || 'SCOOTER'} · peak {String(item.peak_hour).padStart(2, '0')}:00</p>
                     </div>

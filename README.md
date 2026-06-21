@@ -1,10 +1,10 @@
-# Drishti AI — AI-Powered Parking Enforcement Intelligence
+# Drishti AI - AI-Powered Parking Enforcement Intelligence
 
-**Drishti AI** (दृष्टि — *vision*) is an AI-powered decision support system built for the Bengaluru Traffic Police, developed for the **Flipkart Gridlock Hackathon 2.0**. It transforms 5 months of GPS-tagged parking violation data into a live, predictive intelligence layer — telling commanders exactly where to send officers, when, and how many, before violations happen.
+**Drishti AI** (दृष्टि - *vision*) is an AI-powered decision support system built for the Bengaluru Traffic Police, developed for the **Flipkart Gridlock Hackathon 2.0**. It transforms 5 months of GPS-tagged parking violation data into a live, predictive intelligence layer - telling commanders exactly where to send officers, when, and how many, before violations happen.
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 Flipkart-gridLock/
@@ -35,10 +35,10 @@ Flipkart-gridLock/
 
 ---
 
-## ⚙️ Backend Setup (FastAPI)
+## Backend Setup (FastAPI)
 
 ### Prerequisites
-- **Python 3.11** (recommended — 3.12+ may fail to install `xgboost`/`scikit-learn` on Windows)
+- **Python 3.11** (recommended - 3.12+ may fail to install `xgboost`/`scikit-learn` on Windows)
 
 ### Steps
 
@@ -80,7 +80,7 @@ Flipkart-gridLock/
 
 ---
 
-## 🖥️ Frontend Setup (Next.js)
+## Frontend Setup (Next.js)
 
 ### Prerequisites
 - **Node.js** v18+
@@ -116,7 +116,7 @@ Flipkart-gridLock/
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### GET `/`
 Health check.
@@ -129,7 +129,7 @@ Health check.
 
 ### GET `/hotspots`
 Returns top violation junctions, optionally filtered by hour.
-- `hour` (optional, 0–23)
+- `hour` (optional, 0-23)
 - `top_n` (optional, default: 20)
 
 ### GET `/plan`
@@ -144,7 +144,7 @@ XGBoost severity prediction for a junction and time slot.
 ```
 
 ### POST `/simulate`
-Event impact simulation — adjusts severity based on event type multiplier.
+Event impact simulation - adjusts severity based on event type multiplier.
 ```json
 { "event_type": "public_event", "hour": 21, "day_of_week": 6, "top_n": 3 }
 ```
@@ -156,7 +156,7 @@ Supported event types: `public_event` (1.35×), `procession` (1.28×), `vip_move
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -170,9 +170,9 @@ Supported event types: `public_event` (1.35×), `procession` (1.28×), `vip_move
 
 ---
 
-## 📊 Data Facts
+## Data Facts
 
 - **298,450** GPS-tagged violations across **168 junctions** over 5 months
-- Peak hours: **02:00–06:00** (night commercial) · secondary: **19:00–23:00**
-- Top hotspot: **Safina Plaza Junction** — 8,785 violations (5.2% citywide)
+- Peak hours: **02:00-06:00** (night commercial) · secondary: **19:00-23:00**
+- Top hotspot: **Safina Plaza Junction** - 8,785 violations (5.2% citywide)
 - Officer formula: `max(1, min(5, round(severity / 200)))`
