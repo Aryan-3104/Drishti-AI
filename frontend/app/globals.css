@@ -59,7 +59,7 @@ h1, h2, h3, h4, h5 {
   font-family: var(--font-noto-kannada), sans-serif;
 }
 
-::selection { background: rgba(255, 102, 0, 0.25); color: #FDF6EC; }
+::selection { background: rgba(255, 102, 0, 0.25); }
 
 /* Scrollbars */
 *::-webkit-scrollbar { width: 6px; height: 6px; }
