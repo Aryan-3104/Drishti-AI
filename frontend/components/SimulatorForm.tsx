@@ -115,7 +115,7 @@ export default function SimulatorForm() {
                   <div className={`w-px ${isActive ? 'h-2.5 bg-amber' : h % 6 === 0 ? 'h-2 bg-ink-3' : 'h-1.5 bg-edge'}`} />
                   {h % 4 === 0 && (
                     <span className={`font-mono text-[9px] ${isActive ? 'text-amber' : 'text-ink-3'}`}>
-                      {h === 0 ? '12a' : h === 12 ? '12p' : h < 12 ? `${h}a` : `${h-12}p`}
+                      {h === 0 ? '12AM' : h === 12 ? '12PM' : h < 12 ? `${h}AM` : `${h-12}PM`}
                     </span>
                   )}
                 </div>
