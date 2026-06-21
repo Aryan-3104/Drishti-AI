@@ -26,14 +26,25 @@ function statusSentence(h: number) {
 }
 
 export default function LiveNowPanel() {
-  const [now, setNow] = useState<Date | null>(null);
+  const [systemNow, setSystemNow] = useState<Date | null>(null);
+  const [isSimulated, setIsSimulated] = useState(false);
+  const [simHour, setSimHour] = useState(13);
   const [hotspots, setHotspots] = useState<Hotspot[]>([]);
 
   useEffect(() => {
-    setNow(new Date());
-    const id = setInterval(() => setNow(new Date()), 1000);
+    setSystemNow(new Date());
+    const id = setInterval(() => setSystemNow(new Date()), 1000);
     return () => clearInterval(id);
   }, []);
+
+  let now: Date | null = null;
+  if (isSimulated) {
+    const d = new Date();
+    d.setHours(simHour, 0, 0, 0);
+    now = d;
+  } else {
+    now = systemNow;
+  }
 
   const currentHour = now?.getHours();
   useEffect(() => {
@@ -67,14 +78,67 @@ export default function LiveNowPanel() {
   return (
     <div className="rounded border border-edge-strong bg-navy-900 p-6">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 lg:gap-8">
-        <div className="flex flex-col gap-1.5">
-          <span className="text-[11px] uppercase tracking-[0.08em] text-ink-3">Current status</span>
-          <span className="font-mono text-[32px] leading-none font-medium text-ink">{clock}</span>
-          <p className="text-[14px] text-ink mt-1">{statusSentence(now.getHours())}</p>
-          <div className="flex items-center gap-1.5 text-ink-3">
-            <Info className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={2} />
-            <span className="text-[12px]">Based on 5 months of historical patterns at this hour</span>
+        <div className="flex flex-col gap-1.5 justify-between">
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] uppercase tracking-[0.08em] text-ink-3">Current status</span>
+              <button
+                type="button"
+                onClick={() => {
+                  if (!isSimulated) {
+                    setSimHour(systemNow?.getHours() ?? 13);
+                  }
+                  setIsSimulated(!isSimulated);
+                }}
+                className={`text-[10px] font-medium font-mono px-2 py-0.5 rounded border cursor-pointer select-none transition-all flex items-center gap-1 ${
+                  isSimulated
+                    ? 'bg-amber-500/10 border-amber-500/30 text-amber hover:bg-amber-500/20'
+                    : 'bg-navy-800 border-edge text-ink-3 hover:text-ink hover:border-edge-strong'
+                }`}
+              >
+                {isSimulated ? (
+                  <>
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-amber"></span>
+                    </span>
+                    Simulated Time
+                  </>
+                ) : (
+                  <>
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                    </span>
+                    Live Time
+                  </>
+                )}
+              </button>
+            </div>
+            <span className="font-mono text-[32px] leading-none font-medium text-ink block mt-1">{clock}</span>
+            <p className="text-[14px] text-ink mt-1.5">{statusSentence(now.getHours())}</p>
+            <div className="flex items-center gap-1.5 text-ink-3 mt-1">
+              <Info className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={2} />
+              <span className="text-[12px]">Based on 5 months of historical patterns at this hour</span>
+            </div>
           </div>
+
+          {isSimulated && (
+            <div className="mt-3 pt-3 border-t border-edge/60 space-y-2">
+              <div className="flex items-center justify-between text-[11px] font-mono text-ink-3">
+                <span>Drag to adjust simulated hour:</span>
+                <span className="text-amber font-semibold text-[12px]">{pad(simHour)}:00 IST</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="23"
+                value={simHour}
+                onChange={(e) => setSimHour(parseInt(e.target.value))}
+                className="w-full h-1.5 bg-navy-800 rounded-lg appearance-none cursor-pointer accent-amber"
+              />
+            </div>
+          )}
         </div>
 
         <div className="hidden lg:block w-px bg-edge" />
