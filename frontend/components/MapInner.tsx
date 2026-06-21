@@ -111,7 +111,7 @@ export default function MapInner({ initialHour }: { initialHour: number }) {
             <Clock className="w-4 h-4 text-ink-3" strokeWidth={2} />
             <div>
               <h4 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">Hour of day</h4>
-              <p className="text-[12px] text-ink-3 mt-0.5">Drag to filter hotspots by time (smooth transitions)</p>
+              <p className="text-[12px] text-ink-3 mt-0.5">Drag to filter hotspots by time</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
