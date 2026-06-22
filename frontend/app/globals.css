@@ -156,3 +156,103 @@ h1, h2, h3, h4, h5 {
   );
   animation: gradientSpin 4s linear infinite;
 }
+
+/* ─── Page and Content transitions ─── */
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-transition {
+  animation: pageFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ─── Interactive Card Hover & Saffron Glow ─── */
+.interactive-card {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.interactive-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-amber);
+  box-shadow: 0 6px 20px -4px rgba(255, 102, 0, 0.08), 0 4px 12px -2px rgba(139, 26, 26, 0.04);
+}
+
+/* ─── Status Echo Pulse Rings ─── */
+@keyframes statusRipple {
+  0% {
+    transform: scale(0.92);
+    box-shadow: 0 0 0 0 rgba(4, 106, 56, 0.5);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 8px rgba(4, 106, 56, 0);
+  }
+  100% {
+    transform: scale(0.92);
+    box-shadow: 0 0 0 0 rgba(4, 106, 56, 0);
+  }
+}
+@keyframes amberRipple {
+  0% {
+    transform: scale(0.92);
+    box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.5);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 8px rgba(255, 102, 0, 0);
+  }
+  100% {
+    transform: scale(0.92);
+    box-shadow: 0 0 0 0 rgba(255, 102, 0, 0);
+  }
+}
+.live-ripple-ok {
+  animation: statusRipple 2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+}
+.live-ripple-amber {
+  animation: amberRipple 2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+}
+
+/* ─── Leaflet Marker Hover & Bounce ─── */
+@keyframes markerBounce {
+  0% { transform: translateY(-10px); opacity: 0; }
+  60% { transform: translateY(2px); opacity: 1; }
+  100% { transform: translateY(0); }
+}
+.marker-bounce {
+  animation: markerBounce 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+.leaflet-interactive {
+  transition: stroke-width 0.2s ease, fill-opacity 0.2s ease, stroke 0.2s ease, r 0.2s ease;
+}
+
+@keyframes divergeLeft {
+  from { opacity: 0; transform: translateX(-16px) scale(0.97); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes divergeRight {
+  from { opacity: 0; transform: translateX(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes divergeUp {
+  from { opacity: 0; transform: translateY(-16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes divergeDown {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-diverge-left {
+  animation: divergeLeft 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-diverge-right {
+  animation: divergeRight 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-diverge-up {
+  animation: divergeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-diverge-down {
+  animation: divergeDown 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+
