@@ -15,6 +15,7 @@ interface StatCardProps {
   badge?: string;
   badgeTone?: BadgeTone;
   icon: LucideIcon;
+  highlightBorder?: boolean;
 }
 
 function useCountUp(target: number, duration = 1400) {
@@ -41,12 +42,12 @@ const BADGE: Record<BadgeTone, string> = {
   info:     'bg-info/10 text-info border border-info/30',
 };
 
-export default function StatCard({ title, value, animateValue, animatePrefix = '', animateSuffix = '', subtitle, badge, badgeTone = 'amber', icon: Icon }: StatCardProps) {
+export default function StatCard({ title, value, animateValue, animatePrefix = '', animateSuffix = '', subtitle, badge, badgeTone = 'amber', icon: Icon, highlightBorder = false }: StatCardProps) {
   const count = useCountUp(animateValue ?? 0);
   const displayValue = animateValue !== undefined ? `${animatePrefix}${count.toLocaleString()}${animateSuffix}` : value;
 
-  return (
-    <div className="rounded border border-edge bg-navy-900 p-5 flex flex-col gap-2.5">
+  const card = (
+    <div className={`rounded border ${highlightBorder ? 'border-transparent' : 'border-edge'} bg-navy-900 p-5 flex flex-col gap-2.5 h-full`}>
       <div className="flex items-start justify-between">
         <span className="text-[11px] uppercase tracking-[0.08em] text-ink-2">{title}</span>
         <Icon className="w-3.5 h-3.5 text-ink-3 flex-shrink-0 mt-0.5" strokeWidth={2} />
@@ -62,4 +63,14 @@ export default function StatCard({ title, value, animateValue, animatePrefix = '
       )}
     </div>
   );
+
+  if (highlightBorder) {
+    return (
+      <div className="animated-border rounded p-[1.5px]">
+        {card}
+      </div>
+    );
+  }
+
+  return card;
 }

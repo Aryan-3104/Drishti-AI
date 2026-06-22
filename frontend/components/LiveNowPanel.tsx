@@ -1,8 +1,26 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { api, Hotspot } from '../lib/api';
 import { Info, ChevronRight } from 'lucide-react';
+
+function useTypewriter(text: string, speed = 32) {
+  const [displayed, setDisplayed] = useState(text);
+  const prev = useRef(text);
+  useEffect(() => {
+    if (text === prev.current) return;
+    prev.current = text;
+    setDisplayed('');
+    let i = 0;
+    const id = setInterval(() => {
+      i++;
+      setDisplayed(text.slice(0, i));
+      if (i >= text.length) clearInterval(id);
+    }, speed);
+    return () => clearInterval(id);
+  }, [text, speed]);
+  return { displayed, done: displayed.length >= text.length };
+}
 
 const PEAK_WINDOWS = [
   { startHour: 2,  endHour: 6,  label: 'Night commercial vehicle peak',  liftNote: 'Commercial vehicle restrictions lift' },
@@ -47,6 +65,7 @@ export default function LiveNowPanel() {
   }
 
   const currentHour = now?.getHours();
+  const { displayed: typedStatus, done: typingDone } = useTypewriter(statusSentence(now?.getHours() ?? 0));
   useEffect(() => {
     if (currentHour === undefined) return;
     let cancelled = false;
@@ -121,7 +140,10 @@ export default function LiveNowPanel() {
               </div>
             </div>
             <span className="font-mono text-[32px] leading-none font-medium text-ink block mt-1">{clock}</span>
-            <p className="text-[14px] text-ink mt-1.5">{statusSentence(now.getHours())}</p>
+            <p className="text-[14px] text-ink mt-1.5 font-mono">
+              {typedStatus}
+              {!typingDone && <span className="typewriter-cursor inline-block w-[2px] h-[0.9em] bg-ink align-middle ml-[1px]" />}
+            </p>
             <div className="flex items-center gap-1.5 text-ink-3 mt-1">
               <Info className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={2} />
               <span className="text-[12px]">Based on 5 months of historical patterns at this hour</span>

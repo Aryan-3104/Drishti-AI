@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { api, Hotspot, HourlyStat, CongestionSummary } from '@/lib/api';
 import StatCard from '@/components/StatCard';
@@ -17,6 +17,22 @@ const CAPABILITIES = [
   { href: '/enforcement', icon: Brain,    tag: 'Machine learning core',    title: 'XGBoost prediction engine',  description: 'Trained on 298,450 GPS-tagged violations over 5 months, learning road type, vehicle mix, and peak-hour patterns to output severity scores and deployment counts.', metric: '298,450',  metricSub: 'violations in training set' },
 ];
 
+function useReveal() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.08 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return { ref, visible };
+}
+
 export default function Dashboard() {
   const [hotspots, setHotspots] = useState<Hotspot[]>([]);
   const [selectedJunction, setSelectedJunction] = useState('BTP051 - Safina Plaza Junction');
@@ -24,6 +40,8 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [chartLoading, setChartLoading] = useState(false);
   const [congestionSummary, setCongestionSummary] = useState<CongestionSummary | null>(null);
+  const aboutReveal = useReveal();
+  const modulesReveal = useReveal();
 
   useEffect(() => {
     (async () => {
@@ -64,13 +82,14 @@ export default function Dashboard() {
         <StatCard title="Top hotspot zone" value="Safina Plaza" animateValue={8785} animateSuffix=" violations" subtitle="5.2% of all violations citywide" badge="Critical zone" badgeTone="critical" icon={AlertOctagon} />
         <StatCard title="Peak violation hours" value="02:00-06:00" subtitle="Night commercial · 19:00-23:00 secondary" badge="Active window" badgeTone="amber" icon={Clock} />
         <StatCard
-          title="Vehicle-hours lost daily"
-          value={congestionSummary ? congestionSummary.daily_vehicle_hours_lost.toLocaleString() : '—'}
-          animateValue={congestionSummary?.daily_vehicle_hours_lost}
-          subtitle="To parking-induced carriageway blockage"
+          title="Vehicle-hours lost per year"
+          value={congestionSummary ? (congestionSummary.daily_vehicle_hours_lost * 365).toLocaleString() : '—'}
+          animateValue={congestionSummary ? congestionSummary.daily_vehicle_hours_lost * 365 : undefined}
+          subtitle={congestionSummary ? `~${congestionSummary.daily_vehicle_hours_lost} daily · parking-induced carriageway blockage` : 'To parking-induced carriageway blockage'}
           badge="Quantified congestion cost"
           badgeTone="critical"
           icon={Gauge}
+          highlightBorder
         />
       </div>
 
@@ -95,7 +114,7 @@ export default function Dashboard() {
                 const count = item.total_violations || item.violation_count || 0;
                 return (
                   <button key={idx} onClick={() => setSelectedJunction(item.junction_name)}
-                    className={`w-full text-left px-3 py-2.5 rounded flex items-center justify-between transition-colors cursor-pointer border-l-2 ${isSelected ? 'bg-navy-800 border-amber' : 'border-transparent hover:bg-navy-800'}`}>
+                    className={`w-full text-left px-3 py-2.5 rounded flex items-center justify-between transition-colors cursor-pointer border-l-2 ${isSelected ? 'bg-navy-800 border-amber' : 'border-transparent hover:bg-navy-800'} ${idx === 0 ? 'hotspot-glow' : ''}`}>
                     <div className="truncate pr-3">
                       <p className={`text-[13px] truncate font-medium ${isSelected ? 'text-ink' : 'text-ink-2'}`}>{formatJunctionName(item.junction_name)}</p>
                       {toKannada(item.junction_name) && (
@@ -125,7 +144,7 @@ export default function Dashboard() {
       </div>
 
       {/* About Drishti AI */}
-      <div className="space-y-3">
+      <div ref={aboutReveal.ref} className={`space-y-3 ${aboutReveal.visible ? 'section-reveal' : 'section-reveal-hidden'}`}>
         <div className="flex items-center gap-3">
           <h2 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">About Drishti AI</h2>
           <div className="flex-1 h-px bg-edge" />
@@ -202,15 +221,16 @@ export default function Dashboard() {
       </div>
 
       {/* System modules */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-3">
+      <div ref={modulesReveal.ref} className="space-y-3">
+        <div className={`flex items-center gap-3 ${modulesReveal.visible ? 'section-reveal' : 'section-reveal-hidden'}`}>
           <h2 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">System modules</h2>
           <div className="flex-1 h-px bg-edge" />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {CAPABILITIES.map((cap) => (
+          {CAPABILITIES.map((cap, i) => (
             <Link key={cap.href + cap.title} href={cap.href}
-              className="group flex flex-col gap-3 p-5 bg-navy-900 border border-edge rounded transition-colors hover:border-edge-strong">
+              className="group flex flex-col gap-3 p-5 bg-navy-900 border border-edge rounded transition-colors hover:border-edge-strong"
+              style={modulesReveal.visible ? { animation: `sectionReveal 0.55s cubic-bezier(0.16,1,0.3,1) ${i * 0.1}s both` } : { opacity: 0 }}>
               <div className="flex items-start justify-between gap-3">
                 <cap.icon className="w-4 h-4 text-ink-3" strokeWidth={2} />
                 <span className="text-[11px] uppercase tracking-[0.08em] text-ink-3">{cap.tag}</span>
