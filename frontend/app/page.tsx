@@ -78,27 +78,37 @@ export default function Dashboard() {
 
       {/* Stat cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard title="Total violations analysed" value="298,450" animateValue={298450} subtitle="Collected across 5 months" badge="100% GPS coverage" badgeTone="info" icon={Car} />
-        <StatCard title="Top hotspot zone" value="Safina Plaza" animateValue={8785} animateSuffix=" violations" subtitle="5.2% of all violations citywide" badge="Critical zone" badgeTone="critical" icon={AlertOctagon} />
-        <StatCard title="Peak violation hours" value="02:00-06:00" subtitle="Night commercial · 19:00-23:00 secondary" badge="Active window" badgeTone="amber" icon={Clock} />
-        <StatCard
-          title="Vehicle-hours lost per year"
-          value={congestionSummary ? (congestionSummary.daily_vehicle_hours_lost * 365).toLocaleString() : '—'}
-          animateValue={congestionSummary ? congestionSummary.daily_vehicle_hours_lost * 365 : undefined}
-          subtitle={congestionSummary ? `~${congestionSummary.daily_vehicle_hours_lost} daily · parking-induced carriageway blockage` : 'To parking-induced carriageway blockage'}
-          badge="Quantified congestion cost"
-          badgeTone="critical"
-          icon={Gauge}
-          highlightBorder
-        />
+        <div className="animate-diverge-left" style={{ animationDelay: '0ms' }}>
+          <StatCard title="Total violations analysed" value="298,450" animateValue={298450} subtitle="Collected across 5 months" badge="100% GPS coverage" badgeTone="info" icon={Car} />
+        </div>
+        <div className="animate-diverge-up" style={{ animationDelay: '75ms' }}>
+          <StatCard title="Top hotspot zone" value="Safina Plaza" animateValue={8785} animateSuffix=" violations" subtitle="5.2% of all violations citywide" badge="Critical zone" badgeTone="critical" icon={AlertOctagon} />
+        </div>
+        <div className="animate-diverge-up" style={{ animationDelay: '150ms' }}>
+          <StatCard title="Peak violation hours" value="02:00-06:00" subtitle="Night commercial · 19:00-23:00 secondary" badge="Active window" badgeTone="amber" icon={Clock} />
+        </div>
+        <div className="animate-diverge-right" style={{ animationDelay: '225ms' }}>
+          <StatCard
+            title="Vehicle-hours lost per year"
+            value={congestionSummary ? (congestionSummary.daily_vehicle_hours_lost * 365).toLocaleString() : '—'}
+            animateValue={congestionSummary ? congestionSummary.daily_vehicle_hours_lost * 365 : undefined}
+            subtitle={congestionSummary ? `~${congestionSummary.daily_vehicle_hours_lost} daily · parking-induced carriageway blockage` : 'To parking-induced carriageway blockage'}
+            badge="Quantified congestion cost"
+            badgeTone="critical"
+            icon={Gauge}
+            highlightBorder
+          />
+        </div>
       </div>
 
       {/* Live prediction console - real XGBoost inference + historical CSV */}
-      <PredictionConsole />
+      <div className="animate-diverge-down" style={{ animationDelay: '300ms' }}>
+        <PredictionConsole />
+      </div>
 
       {/* Hotspots + chart */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-1 bg-navy-900 border border-edge rounded p-5 flex flex-col gap-3">
+        <div className="lg:col-span-1 bg-navy-900 border border-edge rounded p-5 flex flex-col gap-3 animate-diverge-left" style={{ animationDelay: '375ms' }}>
           <div>
             <h3 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">Top hotspots</h3>
             <p className="text-[12px] text-ink-3 mt-0.5">Select a junction to chart its hourly pattern</p>
@@ -133,7 +143,7 @@ export default function Dashboard() {
           )}
         </div>
 
-        <div className="lg:col-span-2 relative">
+        <div className="lg:col-span-2 relative animate-diverge-right" style={{ animationDelay: '375ms' }}>
           {chartLoading && (
             <div className="absolute inset-0 bg-navy-950/50 z-10 flex items-center justify-center rounded">
               <div className="w-7 h-7 border-2 border-amber border-t-transparent rounded-full animate-spin" />
@@ -200,7 +210,7 @@ export default function Dashboard() {
                 body: 'Every view - heatmap, planner, simulator - is designed to be read in a shift briefing, not a data-science meeting. Numbers are officer counts and junction names, not raw model scores.',
               },
             ].map((pillar) => (
-              <div key={pillar.title} className="flex flex-col gap-3 p-5 bg-navy-800 border border-edge rounded">
+              <div key={pillar.title} className="flex flex-col gap-3 p-5 bg-navy-800 border border-edge rounded interactive-card">
                 <pillar.icon className="w-4 h-4 text-amber" strokeWidth={2} />
                 <div className="space-y-1.5">
                   <p className="text-[14px] font-semibold text-ink">{pillar.title}</p>
@@ -229,7 +239,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {CAPABILITIES.map((cap, i) => (
             <Link key={cap.href + cap.title} href={cap.href}
-              className="group flex flex-col gap-3 p-5 bg-navy-900 border border-edge rounded transition-colors hover:border-edge-strong"
+              className="group flex flex-col gap-3 p-5 bg-navy-900 border border-edge rounded interactive-card"
               style={modulesReveal.visible ? { animation: `sectionReveal 0.55s cubic-bezier(0.16,1,0.3,1) ${i * 0.1}s both` } : { opacity: 0 }}>
               <div className="flex items-start justify-between gap-3">
                 <cap.icon className="w-4 h-4 text-ink-3" strokeWidth={2} />

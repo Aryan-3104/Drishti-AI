@@ -73,10 +73,7 @@ export default function OperationalTicker() {
           </span>
         ))}
         <span className="flex items-center border-l border-edge pl-4">
-          <span className="relative flex h-2 w-2 mr-2">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-ok status-pulse" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-ok" />
-          </span>
+          <span className="h-2 w-2 rounded-full bg-ok live-ripple-ok mr-2" />
           <span className="text-ink-2">System nominal</span>
         </span>
       </div>

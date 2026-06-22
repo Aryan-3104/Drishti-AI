@@ -111,10 +111,7 @@ export default function LiveNowPanel() {
                       : 'border border-transparent text-ink-3 hover:text-ink-2'
                   }`}
                 >
-                  <span className="relative flex h-1.5 w-1.5">
-                    {!isSimulated && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>}
-                    <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${!isSimulated ? 'bg-emerald-500' : 'bg-ink-3'}`}></span>
-                  </span>
+                  <span className={`h-2 w-2 rounded-full ${!isSimulated ? 'bg-ok live-ripple-ok' : 'bg-ink-3'}`}></span>
                   Live
                 </button>
                 <button
@@ -131,10 +128,7 @@ export default function LiveNowPanel() {
                       : 'border border-transparent text-ink-3 hover:text-ink-2'
                   }`}
                 >
-                  <span className="relative flex h-1.5 w-1.5">
-                    {isSimulated && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber opacity-75"></span>}
-                    <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${isSimulated ? 'bg-amber' : 'bg-ink-3'}`}></span>
-                  </span>
+                  <span className={`h-2 w-2 rounded-full ${isSimulated ? 'bg-amber live-ripple-amber' : 'bg-ink-3'}`}></span>
                   Simulate
                 </button>
               </div>

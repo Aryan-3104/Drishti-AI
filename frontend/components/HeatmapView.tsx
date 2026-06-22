@@ -33,73 +33,77 @@ export default function HeatmapView() {
       </div>
 
       {/* How to read */}
-      <div className="bg-navy-900 border border-edge rounded p-5 space-y-5">
-        <div className="flex items-center gap-2">
-          <Info className="w-4 h-4 text-info flex-shrink-0" strokeWidth={2} />
-          <h3 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">How to read this map</h3>
-        </div>
-        <p className="text-[14px] text-ink-2 leading-relaxed">
-          Each circle represents one of Bengaluru's 168 monitored junctions. Toggle between <span className="text-ink font-medium">Violation Count</span> (raw parking violations) and <span className="text-ink font-medium">Congestion Impact</span> (violations weighted by carriageway blockage — main-road violations count 8× more than footpath violations). Enable <span className="text-ink font-medium">Metro Spillover Zones</span> to see the 400 m commuter-parking pressure radius around all Namma Metro stations.
-        </p>
+      <div className="animate-diverge-down" style={{ animationDelay: '0ms' }}>
+        <div className="bg-navy-900 border border-edge rounded p-5 space-y-5">
+          <div className="flex items-center gap-2">
+            <Info className="w-4 h-4 text-info flex-shrink-0" strokeWidth={2} />
+            <h3 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">How to read this map</h3>
+          </div>
+          <p className="text-[14px] text-ink-2 leading-relaxed">
+            Each circle represents one of Bengaluru's 168 monitored junctions. Toggle between <span className="text-ink font-medium">Violation Count</span> (raw parking violations) and <span className="text-ink font-medium">Congestion Impact</span> (violations weighted by carriageway blockage — main-road violations count 8× more than footpath violations). Enable <span className="text-ink font-medium">Metro Spillover Zones</span> to see the 400 m commuter-parking pressure radius around all Namma Metro stations.
+          </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div className="flex flex-col gap-3 p-4 bg-navy-800 border border-edge rounded">
-            <div className="flex items-center gap-2">
-              <Circle className="w-4 h-4 text-ink-3" strokeWidth={2} />
-              <p className="text-[13px] font-medium text-ink">Circle colour = active layer value</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="flex flex-col gap-3 p-4 bg-navy-800 border border-edge rounded">
+              <div className="flex items-center gap-2">
+                <Circle className="w-4 h-4 text-ink-3" strokeWidth={2} />
+                <p className="text-[13px] font-medium text-ink">Circle colour = active layer value</p>
+              </div>
+              <div className="space-y-1.5">
+                {COLOR_SCALE.map((c) => (
+                  <div key={c.label} className="flex items-center gap-3 px-2 py-1">
+                    <span className="w-3 h-3 rounded-full flex-shrink-0 border border-white/30" style={{ backgroundColor: c.color }} />
+                    <span className="text-[13px] text-ink w-16 flex-shrink-0">{c.label}</span>
+                    <span className="font-mono text-[11px] text-ink-3">{c.range}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="space-y-1.5">
-              {COLOR_SCALE.map((c) => (
-                <div key={c.label} className="flex items-center gap-3 px-2 py-1">
-                  <span className="w-3 h-3 rounded-full flex-shrink-0 border border-white/30" style={{ backgroundColor: c.color }} />
-                  <span className="text-[13px] text-ink w-16 flex-shrink-0">{c.label}</span>
-                  <span className="font-mono text-[11px] text-ink-3">{c.range}</span>
+
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 p-4 bg-navy-800 border border-edge rounded">
+                <div className="flex items-center gap-2">
+                  <Activity className="w-4 h-4 text-purple-400" strokeWidth={2} />
+                  <p className="text-[13px] font-medium text-ink">Congestion Impact mode</p>
+                </div>
+                <p className="text-[12px] text-ink-2 leading-relaxed">
+                  Switches circles to purple scale. Junctions with high <span className="text-ink">main-road violations</span> appear much larger — directly quantifying carriageway blockage impact on traffic flow.
+                </p>
+              </div>
+              <div className="flex flex-col gap-2 p-4 bg-navy-800 border border-edge rounded">
+                <div className="flex items-center gap-2">
+                  <Train className="w-4 h-4 text-blue-400" strokeWidth={2} />
+                  <p className="text-[13px] font-medium text-ink">Metro spillover zones</p>
+                </div>
+                <p className="text-[12px] text-ink-2 leading-relaxed">Dashed rings show the 400 m commuter-parking pressure zone around all Namma Metro stations (Purple + Green lines). Overlapping junctions are high-priority for enforcement.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <p className="text-[11px] uppercase tracking-[0.08em] text-ink-2">What to look for at different hours</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {[
+                { icon: TrendingUp,    label: 'Late night (00:00-06:00)',    desc: 'Highest overall counts. Commercial trucks and delivery vehicles dominate near markets and freight routes.' },
+                { icon: AlertTriangle, label: 'Evening peak (19:00-23:00)',  desc: 'Second major spike. Two-wheelers and cars park illegally near restaurants, malls and entertainment zones.' },
+                { icon: Clock,         label: 'Daytime (09:00-17:00)',       desc: 'Comparatively calmer. Lower volume near commercial zones - ideal window for routine patrol redeployment.' },
+              ].map((tip) => (
+                <div key={tip.label} className="flex gap-3 p-4 border border-edge bg-navy-800 rounded">
+                  <tip.icon className="w-4 h-4 flex-shrink-0 mt-0.5 text-ink-3" strokeWidth={2} />
+                  <div>
+                    <p className="text-[13px] font-medium text-ink">{tip.label}</p>
+                    <p className="text-[12px] text-ink-2 mt-1 leading-relaxed">{tip.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-
-          <div className="flex flex-col gap-3">
-            <div className="flex flex-col gap-3 p-4 bg-navy-800 border border-edge rounded">
-              <div className="flex items-center gap-2">
-                <Activity className="w-4 h-4 text-purple-400" strokeWidth={2} />
-                <p className="text-[13px] font-medium text-ink">Congestion Impact mode</p>
-              </div>
-              <p className="text-[12px] text-ink-2 leading-relaxed">
-                Switches circles to purple scale. Junctions with high <span className="text-ink">main-road violations</span> appear much larger — directly quantifying carriageway blockage impact on traffic flow.
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 p-4 bg-navy-800 border border-edge rounded">
-              <div className="flex items-center gap-2">
-                <Train className="w-4 h-4 text-blue-400" strokeWidth={2} />
-                <p className="text-[13px] font-medium text-ink">Metro spillover zones</p>
-              </div>
-              <p className="text-[12px] text-ink-2 leading-relaxed">Dashed rings show the 400 m commuter-parking pressure zone around all Namma Metro stations (Purple + Green lines). Overlapping junctions are high-priority for enforcement.</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <p className="text-[11px] uppercase tracking-[0.08em] text-ink-2">What to look for at different hours</p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {[
-              { icon: TrendingUp,    label: 'Late night (00:00-06:00)',    desc: 'Highest overall counts. Commercial trucks and delivery vehicles dominate near markets and freight routes.' },
-              { icon: AlertTriangle, label: 'Evening peak (19:00-23:00)',  desc: 'Second major spike. Two-wheelers and cars park illegally near restaurants, malls and entertainment zones.' },
-              { icon: Clock,         label: 'Daytime (09:00-17:00)',       desc: 'Comparatively calmer. Lower volume near commercial zones - ideal window for routine patrol redeployment.' },
-            ].map((tip) => (
-              <div key={tip.label} className="flex gap-3 p-4 border border-edge bg-navy-800 rounded">
-                <tip.icon className="w-4 h-4 flex-shrink-0 mt-0.5 text-ink-3" strokeWidth={2} />
-                <div>
-                  <p className="text-[13px] font-medium text-ink">{tip.label}</p>
-                  <p className="text-[12px] text-ink-2 mt-1 leading-relaxed">{tip.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 
-      <MapInner initialHour={5} />
+      <div className="animate-diverge-up" style={{ animationDelay: '100ms' }}>
+        <MapInner initialHour={5} />
+      </div>
     </div>
   );
 }

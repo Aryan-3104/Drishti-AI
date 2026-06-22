@@ -47,7 +47,7 @@ export default function StatCard({ title, value, animateValue, animatePrefix = '
   const displayValue = animateValue !== undefined ? `${animatePrefix}${count.toLocaleString()}${animateSuffix}` : value;
 
   const card = (
-    <div className={`rounded border ${highlightBorder ? 'border-transparent' : 'border-edge'} bg-navy-900 p-5 flex flex-col gap-2.5 h-full`}>
+    <div className={`rounded border ${highlightBorder ? 'border-transparent' : 'border-edge'} bg-navy-900 p-5 flex flex-col gap-2.5 h-full interactive-card`}>
       <div className="flex items-start justify-between">
         <span className="text-[11px] uppercase tracking-[0.08em] text-ink-2">{title}</span>
         <Icon className="w-3.5 h-3.5 text-ink-3 flex-shrink-0 mt-0.5" strokeWidth={2} />
