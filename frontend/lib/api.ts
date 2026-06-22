@@ -134,13 +134,39 @@ export const api = {
   async getAllHoursHotspots(): Promise<{ hotspots: AllHoursHotspot[] }> {
     return fetchJson<{ hotspots: AllHoursHotspot[] }>('/hotspots/all-hours');
   },
+
+  /**
+   * Get city-wide congestion summary: daily vehicle-hours lost + top impact junctions
+   */
+  async getCongestionSummary(): Promise<CongestionSummary> {
+    return fetchJson<CongestionSummary>('/congestion-summary');
+  },
 };
 
 export interface AllHoursHotspot {
   junction_name: string;
   hour: number;
   violation_count: number;
+  congestion_impact: number;
   lat: number;
   lon: number;
+}
+
+export interface CongestionJunction {
+  junction_name: string;
+  total_congestion_impact: number;
+  total_violations: number;
+  daily_vehicle_hours_lost: number;
+  main_road_pct: number;
+  peak_hour: number;
+  top_vehicle: string;
+  lat: number;
+  lon: number;
+}
+
+export interface CongestionSummary {
+  daily_vehicle_hours_lost: number;
+  top_impact_junctions: CongestionJunction[];
+  note: string;
 }
 

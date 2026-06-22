@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { MapPin, Info, Circle, Move, Clock, TrendingUp, AlertTriangle } from 'lucide-react';
+import { MapPin, Info, Circle, Move, Clock, TrendingUp, AlertTriangle, Activity, Train } from 'lucide-react';
 
 const MapInner = dynamic(() => import('./MapInner'), {
   ssr: false,
@@ -39,14 +39,14 @@ export default function HeatmapView() {
           <h3 className="text-[13px] uppercase tracking-[0.05em] text-ink-2">How to read this map</h3>
         </div>
         <p className="text-[14px] text-ink-2 leading-relaxed">
-          Each circle represents one of Bengaluru's 168 monitored junctions. The <span className="text-ink font-medium">colour</span> shows violation severity at that junction for the selected hour, and the <span className="text-ink font-medium">size</span> scales with the same count. Drag the hour slider to watch enforcement pressure shift across the city.
+          Each circle represents one of Bengaluru's 168 monitored junctions. Toggle between <span className="text-ink font-medium">Violation Count</span> (raw parking violations) and <span className="text-ink font-medium">Congestion Impact</span> (violations weighted by carriageway blockage — main-road violations count 8× more than footpath violations). Enable <span className="text-ink font-medium">Metro Spillover Zones</span> to see the 400 m commuter-parking pressure radius around all Namma Metro stations.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div className="flex flex-col gap-3 p-4 bg-navy-800 border border-edge rounded">
             <div className="flex items-center gap-2">
               <Circle className="w-4 h-4 text-ink-3" strokeWidth={2} />
-              <p className="text-[13px] font-medium text-ink">Circle colour = severity</p>
+              <p className="text-[13px] font-medium text-ink">Circle colour = active layer value</p>
             </div>
             <div className="space-y-1.5">
               {COLOR_SCALE.map((c) => (
@@ -62,24 +62,19 @@ export default function HeatmapView() {
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-3 p-4 bg-navy-800 border border-edge rounded">
               <div className="flex items-center gap-2">
-                <Move className="w-4 h-4 text-ink-3" strokeWidth={2} />
-                <p className="text-[13px] font-medium text-ink">Circle size = relative count</p>
+                <Activity className="w-4 h-4 text-purple-400" strokeWidth={2} />
+                <p className="text-[13px] font-medium text-ink">Congestion Impact mode</p>
               </div>
-              <div className="flex items-end gap-4 px-2 pt-1">
-                {[{r:8,l:'Low',c:'#fbbf24'},{r:14,l:'Medium',c:'#f97316'},{r:20,l:'High',c:'#dc2626'},{r:26,l:'Critical',c:'#b91c1c'}].map((dot) => (
-                  <div key={dot.l} className="flex flex-col items-center gap-1.5">
-                    <div className="rounded-full border border-white/30 flex-shrink-0" style={{ width: dot.r, height: dot.r, backgroundColor: dot.c }} />
-                    <span className="text-[10px] text-ink-3">{dot.l}</span>
-                  </div>
-                ))}
-              </div>
+              <p className="text-[12px] text-ink-2 leading-relaxed">
+                Switches circles to purple scale. Junctions with high <span className="text-ink">main-road violations</span> appear much larger — directly quantifying carriageway blockage impact on traffic flow.
+              </p>
             </div>
             <div className="flex flex-col gap-2 p-4 bg-navy-800 border border-edge rounded">
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-ink-3" strokeWidth={2} />
-                <p className="text-[13px] font-medium text-ink">Click any circle for details</p>
+                <Train className="w-4 h-4 text-blue-400" strokeWidth={2} />
+                <p className="text-[13px] font-medium text-ink">Metro spillover zones</p>
               </div>
-              <p className="text-[12px] text-ink-2 leading-relaxed">A popup shows the junction name, exact violation count at that hour, and the time you're viewing.</p>
+              <p className="text-[12px] text-ink-2 leading-relaxed">Dashed rings show the 400 m commuter-parking pressure zone around all Namma Metro stations (Purple + Green lines). Overlapping junctions are high-priority for enforcement.</p>
             </div>
           </div>
         </div>

@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { api, Hotspot, HourlyStat } from '@/lib/api';
+import { api, Hotspot, HourlyStat, CongestionSummary } from '@/lib/api';
 import StatCard from '@/components/StatCard';
 import ViolationChart from '@/components/ViolationChart';
 import LiveNowPanel from '@/components/LiveNowPanel';
 import PredictionConsole from '@/components/PredictionConsole';
-import { Car, AlertOctagon, Clock, TrendingUp, ChevronRight, Map, Calendar, Zap, Brain, ArrowRight, Eye, Target, Activity, Users } from 'lucide-react';
+import { Car, AlertOctagon, Clock, ChevronRight, Map, Calendar, Zap, Brain, ArrowRight, Eye, Target, Activity, Users, Gauge } from 'lucide-react';
 import { toKannada } from '@/lib/kannada';
 
 const CAPABILITIES = [
@@ -23,13 +23,18 @@ export default function Dashboard() {
   const [hourlyStats, setHourlyStats] = useState<HourlyStat[]>([]);
   const [loading, setLoading] = useState(true);
   const [chartLoading, setChartLoading] = useState(false);
+  const [congestionSummary, setCongestionSummary] = useState<CongestionSummary | null>(null);
 
   useEffect(() => {
     (async () => {
       try {
-        const res = await api.getHotspots(undefined, 10);
-        setHotspots(res.hotspots);
-        if (res.hotspots.length > 0) setSelectedJunction(res.hotspots[0].junction_name);
+        const [hotspotsRes, congestionRes] = await Promise.all([
+          api.getHotspots(undefined, 10),
+          api.getCongestionSummary().catch(() => null),
+        ]);
+        setHotspots(hotspotsRes.hotspots);
+        if (hotspotsRes.hotspots.length > 0) setSelectedJunction(hotspotsRes.hotspots[0].junction_name);
+        if (congestionRes) setCongestionSummary(congestionRes);
       } catch (err) { console.error(err); }
       finally { setLoading(false); }
     })();
@@ -58,7 +63,15 @@ export default function Dashboard() {
         <StatCard title="Total violations analysed" value="298,450" animateValue={298450} subtitle="Collected across 5 months" badge="100% GPS coverage" badgeTone="info" icon={Car} />
         <StatCard title="Top hotspot zone" value="Safina Plaza" animateValue={8785} animateSuffix=" violations" subtitle="5.2% of all violations citywide" badge="Critical zone" badgeTone="critical" icon={AlertOctagon} />
         <StatCard title="Peak violation hours" value="02:00-06:00" subtitle="Night commercial · 19:00-23:00 secondary" badge="Active window" badgeTone="amber" icon={Clock} />
-        <StatCard title="Event amplification" value="+35%" animateValue={35} animatePrefix="+" animateSuffix="%" subtitle="During public rallies / festivals" badge="Predictive pre-deployment" badgeTone="healthy" icon={TrendingUp} />
+        <StatCard
+          title="Vehicle-hours lost daily"
+          value={congestionSummary ? congestionSummary.daily_vehicle_hours_lost.toLocaleString() : '—'}
+          animateValue={congestionSummary?.daily_vehicle_hours_lost}
+          subtitle="To parking-induced carriageway blockage"
+          badge="Quantified congestion cost"
+          badgeTone="critical"
+          icon={Gauge}
+        />
       </div>
 
       {/* Live prediction console - real XGBoost inference + historical CSV */}
