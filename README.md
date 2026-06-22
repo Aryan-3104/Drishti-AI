@@ -121,16 +121,25 @@ Flipkart-gridLock/
 ### GET `/`
 Health check.
 ```json
-{
-  "status": "Drishti AI API running",
-  "version": "1.0"
-}
+{ "status": "Drishti AI API running", "version": "1.0" }
 ```
 
 ### GET `/hotspots`
-Returns top violation junctions, optionally filtered by hour.
+Returns top violation junctions, optionally filtered by hour. Each result now includes a `congestion_impact` field (violation count weighted by carriageway blockage — main-road violations count 8× more than footpath violations).
 - `hour` (optional, 0-23)
 - `top_n` (optional, default: 20)
+
+### GET `/hotspots/all-hours`
+Full hourly dataset for all 168 junctions (used by the heatmap). Each row includes `congestion_impact` alongside `violation_count` to power the Congestion Impact map layer.
+
+### GET `/congestion-summary`
+City-wide daily vehicle-hours lost to parking-induced carriageway blockage, plus top junctions ranked by congestion impact (not raw violation count). Directly answers the problem statement's requirement to *quantify impact on traffic flow*.
+```json
+{
+  "daily_vehicle_hours_lost": 87,
+  "top_impact_junctions": [ ... ]
+}
+```
 
 ### GET `/plan`
 Weekly enforcement calendar with officer count recommendations.
@@ -170,9 +179,25 @@ Supported event types: `public_event` (1.35×), `procession` (1.28×), `vip_move
 
 ---
 
+## Key Features
+
+### Heatmap — two map layers
+- **Violation Count mode** — circles coloured by raw violation density per hour (amber scale)
+- **Congestion Impact mode** — circles reweighted by carriageway blockage (`violation_count × (1 + main_road_pct × 8)`), coloured on a purple scale. Directly quantifies traffic flow disruption, not just violation frequency.
+- **Metro Spillover Zones** — toggle to overlay dashed 400 m radius rings around all 32 Namma Metro stations (Purple + Green lines). Junctions overlapping a metro ring are high-priority commuter parking zones.
+
+### Congestion Impact Score
+A derived metric that answers the problem statement's core ask — *"quantify their impact on traffic flow"*. Main-road violations (which physically block lanes) are weighted 8× heavier than footpath violations in the score. This causes junctions to rerank on the map relative to their raw violation count, surfacing the junctions that most harm traffic flow.
+
+### Vehicle-Hours Lost
+City-wide estimate of commuter time lost to parking-induced carriageway blockage: **~87 vehicle-hours per day / ~31,755 per year**. Displayed on the dashboard and derived from the Congestion Impact Score normalised over the 5-month dataset period.
+
+---
+
 ## Data Facts
 
 - **298,450** GPS-tagged violations across **168 junctions** over 5 months
 - Peak hours: **02:00-06:00** (night commercial) · secondary: **19:00-23:00**
-- Top hotspot: **Safina Plaza Junction** - 8,785 violations (5.2% citywide)
-- Officer formula: `max(1, min(5, round(severity / 200)))`
+- Top hotspot: **Safina Plaza Junction** — 8,785 violations (5.2% citywide)
+- Congestion Impact: **~87 vehicle-hours lost daily** city-wide to carriageway blockage
+- Officer formula: `max(1, min(5, round(severity / 14)))`
