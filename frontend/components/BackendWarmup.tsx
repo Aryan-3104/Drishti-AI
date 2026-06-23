@@ -101,8 +101,8 @@ export default function BackendWarmup() {
                 'The backend is awake. Live data is loading now.'
               ) : (
                 <>
-                  Drishti AI runs on a <span className="text-ink font-medium">free-tier backend</span>  that sleeps when idle.
-                  The first load can take up to a minute while it wakes up — this notice clears automatically the moment it&apos;s ready.
+                  Drishti AI runs on a <span className="text-ink font-medium">free-tier backend</span>{' '}that sleeps when idle.
+                  The first load can take up to a minute while it wakes up -- this notice clears automatically the moment it&apos;s ready.
                 </>
               )}
             </p>
@@ -124,7 +124,7 @@ export default function BackendWarmup() {
 
           {status !== 'ready' && (
             <p className="text-[11px] text-ink-3">
-              No action needed — please keep this tab open.
+              No action needed -- please keep this tab open.
             </p>
           )}
         </div>
