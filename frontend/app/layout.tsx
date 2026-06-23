@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Fraunces, Noto_Sans_Kannada, JetBrains_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import OperationalTicker from "@/components/OperationalTicker";
+import BackendWarmup from "@/components/BackendWarmup";
 import "./globals.css";
 
 const inter = Inter({
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-navy-950 text-ink font-sans">
+        <BackendWarmup />
         <Navbar />
         <OperationalTicker />
         <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-6 md:px-8">

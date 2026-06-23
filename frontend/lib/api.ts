@@ -141,6 +141,19 @@ export const api = {
   async getCongestionSummary(): Promise<CongestionSummary> {
     return fetchJson<CongestionSummary>('/congestion-summary');
   },
+
+  /**
+   * Lightweight health check — true once the backend is awake.
+   * Used to detect cold-start wake-up on free-tier hosting.
+   */
+  async health(): Promise<boolean> {
+    try {
+      const res = await fetch(`${API_BASE_URL}/`, { cache: 'no-store' });
+      return res.ok;
+    } catch {
+      return false;
+    }
+  },
 };
 
 export interface AllHoursHotspot {
